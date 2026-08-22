@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>utara🧀 - Pack Sharing</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    /* Nền hoàng hôn nửa hồng nửa xanh */
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 25%, #8ec5fc 75%, #4facfe 100%);
+      background-attachment: fixed;
+      color: #1e293b;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Canvas tuyết rơi */
+    #snow-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    /* Top bar */
+    .top-bar {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 28px;
+    }
+
+    .tiktok-profile {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 6px 18px 6px 8px;
+      background: rgba(255, 255, 255, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      border-radius: 50px;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    }
+
+    .tiktok-profile:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.65);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    .avatar-wrapper {
+      width: 44px;
+      height: 44px;
+    }
+
+    .avatar-wrapper img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #fff;
+    }
+
+    .profile-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .profile-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .profile-id {
+      font-size: 0.78rem;
+      color: #475569;
+      font-weight: 500;
+    }
+
+    /* GRID DANH SÁCH PACK */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 24px;
+    }
+
+    /* CARD PACK */
+    .pack-card {
+      background: rgba(255, 255, 255, 0.35);
+      border-radius: 24px;
+      padding: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      cursor: pointer;
+      transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      user-select: none;
+    }
+
+    .pack-card:hover {
+      transform: translateY(-6px);
+      background: rgba(255, 255, 255, 0.55);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
+      border-color: rgba(255, 255, 255, 0.9);
+    }
+
+    /* SLIDER ẢNH (DÙNG CHUNG CARD & MODAL) */
+    .carousel-container {
+      width: 100%;
+      height: 220px;
+      border-radius: 18px;
+      overflow: hidden;
+      position: relative;
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    .carousel-track {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .carousel-slide {
+      min-width: 100%;
+      width: 100%;
+      height: 100%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .carousel-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center; /* Căn giữa tâm ảnh */
+      display: block;
+    }
+
+    /* Nút mũi tên chuyển ảnh */
+    .carousel-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 32px;
+      height: 32px;
+      background: rgba(0, 0, 0, 0.45);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.2s, background 0.2s, transform 0.2s;
+      font-size: 14px;
+      z-index: 5;
+    }
+
+    .pack-card:hover .carousel-nav {
+      opacity: 1;
+    }
+
+    .carousel-nav:hover {
+      background: rgba(0, 0, 0, 0.75);
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .carousel-prev { left: 10px; }
+    .carousel-next { right: 10px; }
+
+    /* Chấm chỉ số ảnh (Dots) */
+    .carousel-dots {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+      z-index: 5;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.5);
+      transition: all 0.25s;
+    }
+
+    .dot.active {
+      background: #fff;
+      width: 18px;
+      border-radius: 6px;
+    }
+
+    /* TIÊU ĐỀ THU GỌN VỚI DẤU "..." */
+    .card-footer {
+      padding: 12px 6px 4px 6px;
+    }
+
+    .card-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #0f172a;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+      display: block;
+    }
+
+    /* MODAL POPUP XEM FULL THÔNG TIN */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      padding: 20px;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-content {
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(25px);
+      border-radius: 28px;
+      width: 100%;
+      max-width: 580px;
+      padding: 24px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+      transform: scale(0.9);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+
+    .modal-overlay.active .modal-content {
+      transform: scale(1);
+    }
+
+    .btn-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(0, 0, 0, 0.08);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: #333;
+      transition: 0.2s;
+      z-index: 10;
+    }
+
+    .btn-close:hover {
+      background: rgba(0, 0, 0, 0.18);
+      transform: rotate(90deg);
+    }
+
+    /* Khung Carousel riêng trong Modal */
+    .modal-carousel {
+      height: 280px;
+      margin-bottom: 18px;
+    }
+
+    .modal-carousel .carousel-nav {
+      opacity: 0.75;
+    }
+
+    .modal-carousel:hover .carousel-nav {
+      opacity: 1;
+    }
+
+    .modal-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 12px;
+      line-height: 1.4;
+      word-break: break-word;
+    }
+
+    .modal-desc {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: #334155;
+      margin-bottom: 20px;
+      background: rgba(255, 255, 255, 0.6);
+      padding: 12px 16px;
+      border-radius: 14px;
+      max-height: 140px;
+      overflow-y: auto;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 12px 20px;
+      border-radius: 16px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: #0f172a;
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: #334155;
+      transform: translateY(-2px);
+    }
+
+    .btn-copy {
+      background: rgba(255, 255, 255, 0.85);
+      color: #0f172a;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-copy:hover {
+      background: #fff;
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hiệu ứng tuyết rơi -->
+  <canvas id="snow-canvas"></canvas>
+
+  <div class="container">
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <a href="https://www.tiktok.com/@utara2613" target="_blank" class="tiktok-profile">
+        <div class="avatar-wrapper">
+          <img src="assets/avt.png" onerror="this.src='https://api.dicebear.com/7.x/notionists/svg?seed=utara'" alt="Avatar">
+        </div>
+        <div class="profile-info">
+          <span class="profile-name">utara🧀</span>
+          <span class="profile-id">utara2613</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- Danh sách Pack Cards -->
+    <div class="gallery-grid" id="packGrid"></div>
+  </div>
+
+  <!-- Modal Chi Tiết -->
+  <div class="modal-overlay" id="detailModal">
+    <div class="modal-content">
+      <button class="btn-close" id="btnClose">&times;</button>
+      
+      <!-- Slider trong Modal -->
+      <div class="carousel-container modal-carousel">
+        <div class="carousel-track" id="modalCarouselTrack"></div>
+        <button class="carousel-nav carousel-prev" id="modalPrev">&#10094;</button>
+        <button class="carousel-nav carousel-next" id="modalNext">&#10095;</button>
+        <div class="carousel-dots" id="modalDots"></div>
+      </div>
+
+      <h2 class="modal-title" id="modalTitle"></h2>
+      <div class="modal-desc" id="modalDesc"></div>
+      <div class="modal-actions">
+        <a id="modalLinkBtn" href="#" target="_blank" class="btn btn-primary">🔗 Mở liên kết</a>
+        <button id="btnCopyLink" class="btn btn-copy">📋 Sao chép Link</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* ========================================================
+       CÀI ĐẶT CÁC PACK CỦA BẠN TẠI ĐÂY
+       ======================================================== */
+    const packList = [
+      {
+        title: "Pack alya",
+        images: [
+          "assets/alya1.png",
+          "assets/alya2.png",
+          "assets/alya3.png",
+          "assets/alya4.png",
+          "assets/alya5.png",
+          "assets/alya6.png",
+          "assets/alya7.png",
+        ],
+        desc: "Pack đầu tay của tui nhe 💖",
+        link: "https://link4m.org/aaNlL"
+      },
+      {
+        title: "Pack Roxy Migurdia",
+        images: [
+          "assets/roxy9.png",
+          "assets/roxy1.png",
+          "assets/roxy2.png",
+          "assets/roxy3.png",
+          "assets/roxy4.png",
+          "assets/roxy5.png",
+          "assets/roxy6.png",
+          "assets/roxy7.png",
+          "assets/roxy8.png",
+        ],
+        desc: "Download pack tại link dưới đây <3",
+        link: "https://link4m.org/of6KTBPw"
+      },
+      {
+        title: "Pack Nakano Miku",
+        images: [
+          "assets/miku1.png",
+          "assets/miku2.png",
+          "assets/miku3.png"
+        ],
+        desc: "Download pack tại link dưới đây",
+        link: "https://link4m.net/mda4EQ"
+      },
+      {
+        title: "Pack Arisu Tendou",
+        images: [
+          "assets/aris1.png",
+          "assets/aris2.png",
+          "assets/aris3.png",
+          "assets/aris4.png",
+          "assets/aris5.png",
+          "assets/aris6.png",
+          "assets/aris7.png",
+          "assets/aris8.png",
+          "assets/aris9.png",
+          "assets/aris10.png",
+          "assets/aris11.png",
+        ],
+        desc: "Animation thẻ ngân hàng kính tối sang trọng dùng cho edit video.",
+        link: "https://link4m.net/TbMqts"
+      }
+    ];
+
+    /* ========================================================
+       KHỞI TẠO CARD VÀ SLIDER NGOÀI GRID
+       ======================================================== */
+    const packGrid = document.getElementById('packGrid');
+    const defaultPlaceholder = "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&q=80";
+
+    packList.forEach((pack) => {
+      const card = document.createElement('div');
+      card.className = 'pack-card';
+
+      let currentIndex = 0;
+      let intervalId = null;
+      const totalImages = pack.images.length;
+
+      const slidesHtml = pack.images.map(img => `
+        <div class="carousel-slide">
+          <img src="${img}" onerror="this.src='${defaultPlaceholder}'" alt="pack">
+        </div>
+      `).join('');
+
+      const dotsHtml = totalImages > 1 ? `
+        <div class="carousel-dots">
+          ${pack.images.map((_, i) => `<div class="dot ${i === 0 ? 'active' : ''}"></div>`).join('')}
+        </div>
+      ` : '';
+
+      const navHtml = totalImages > 1 ? `
+        <button class="carousel-nav carousel-prev">&#10094;</button>
+        <button class="carousel-nav carousel-next">&#10095;</button>
+      ` : '';
+
+      card.innerHTML = `
+        <div class="carousel-container">
+          <div class="carousel-track">${slidesHtml}</div>
+          ${navHtml}
+          ${dotsHtml}
+        </div>
+        <div class="card-footer">
+          <span class="card-title" title="${pack.title}">${pack.title}</span>
+        </div>
+      `;
+
+      const track = card.querySelector('.carousel-track');
+      const dots = card.querySelectorAll('.dot');
+
+      function updateSlide(idx) {
+        currentIndex = idx;
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+        dots.forEach((d, i) => d.classList.toggle('active', i === currentIndex));
+      }
+
+      function nextSlide() {
+        let nextIdx = (currentIndex + 1) % totalImages;
+        updateSlide(nextIdx);
+      }
+
+      function prevSlide() {
+        let prevIdx = (currentIndex - 1 + totalImages) % totalImages;
+        updateSlide(prevIdx);
+      }
+
+      if (totalImages > 1) {
+        card.querySelector('.carousel-next').addEventListener('click', (e) => {
+          e.stopPropagation();
+          nextSlide();
+        });
+        card.querySelector('.carousel-prev').addEventListener('click', (e) => {
+          e.stopPropagation();
+          prevSlide();
+        });
+
+        card.addEventListener('mouseenter', () => {
+          intervalId = setInterval(nextSlide, 1500);
+        });
+
+        card.addEventListener('mouseleave', () => {
+          if (intervalId) {
+            clearInterval(intervalId);
+            intervalId = null;
+          }
+        });
+      }
+
+      card.addEventListener('click', () => {
+        openModal(pack, currentIndex);
+      });
+
+      packGrid.appendChild(card);
+    });
+
+    /* ========================================================
+       MODAL & SLIDER BÊN TRONG MODAL
+       ======================================================== */
+    const modal = document.getElementById('detailModal');
+    const btnClose = document.getElementById('btnClose');
+    const modalTrack = document.getElementById('modalCarouselTrack');
+    const modalDots = document.getElementById('modalDots');
+    const modalPrev = document.getElementById('modalPrev');
+    const modalNext = document.getElementById('modalNext');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDesc = document.getElementById('modalDesc');
+    const modalLinkBtn = document.getElementById('modalLinkBtn');
+    const btnCopyLink = document.getElementById('btnCopyLink');
+    
+    let currentActiveLink = "";
+    let modalCurrentIdx = 0;
+    let modalTotalSlides = 0;
+
+    function updateModalSlide(idx) {
+      modalCurrentIdx = idx;
+      modalTrack.style.transform = `translateX(-${modalCurrentIdx * 100}%)`;
+      const dots = modalDots.querySelectorAll('.dot');
+      dots.forEach((d, i) => d.classList.toggle('active', i === modalCurrentIdx));
+    }
+
+    modalNext.addEventListener('click', (e) => {
+      e.stopPropagation();
+      let next = (modalCurrentIdx + 1) % modalTotalSlides;
+      updateModalSlide(next);
+    });
+
+    modalPrev.addEventListener('click', (e) => {
+      e.stopPropagation();
+      let prev = (modalCurrentIdx - 1 + modalTotalSlides) % modalTotalSlides;
+      updateModalSlide(prev);
+    });
+
+    function openModal(pack, initialImgIdx = 0) {
+      modalTotalSlides = pack.images.length;
+      modalCurrentIdx = initialImgIdx;
+
+      // Render danh sách ảnh cho Modal
+      modalTrack.innerHTML = pack.images.map(img => `
+        <div class="carousel-slide">
+          <img src="${img}" onerror="this.src='${defaultPlaceholder}'" alt="preview">
+        </div>
+      `).join('');
+
+      // Render dots và hiển thị/ẩn nút next-prev
+      if (modalTotalSlides > 1) {
+        modalPrev.style.display = 'flex';
+        modalNext.style.display = 'flex';
+        modalDots.innerHTML = pack.images.map((_, i) => `<div class="dot ${i === modalCurrentIdx ? 'active' : ''}"></div>`).join('');
+      } else {
+        modalPrev.style.display = 'none';
+        modalNext.style.display = 'none';
+        modalDots.innerHTML = '';
+      }
+
+      updateModalSlide(modalCurrentIdx);
+
+      modalTitle.textContent = pack.title;
+      modalDesc.textContent = pack.desc || "Không có mô tả chi tiết cho pack này.";
+      modalLinkBtn.href = pack.link;
+      currentActiveLink = pack.link;
+
+      btnCopyLink.textContent = "📋 Sao chép Link";
+      modal.classList.add('active');
+    }
+
+    function closeModal() {
+      modal.classList.remove('active');
+    }
+
+    btnClose.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    btnCopyLink.addEventListener('click', () => {
+      navigator.clipboard.writeText(currentActiveLink).then(() => {
+        btnCopyLink.textContent = "✅ Đã sao chép!";
+        setTimeout(() => {
+          btnCopyLink.textContent = "📋 Sao chép Link";
+        }, 2000);
+      });
+    });
+
+    /* ========================================================
+       HIỆU ỨNG TUYẾT RƠI
+       ======================================================== */
+    const canvas = document.getElementById('snow-canvas');
+    const ctx = canvas.getContext('2d');
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+
+    const flakes = Array.from({ length: 60 }, () => ({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      radius: Math.random() * 2.8 + 1,
+      speedY: Math.random() * 1 + 0.5,
+      speedX: Math.random() * 0.4 - 0.2,
+      opacity: Math.random() * 0.6 + 0.4
+    }));
+
+    function drawSnow() {
+      ctx.clearRect(0, 0, width, height);
+      flakes.forEach(flake => {
+        ctx.beginPath();
+        ctx.arc(flake.x, flake.y, flake.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${flake.opacity})`;
+        ctx.fill();
+
+        flake.y += flake.speedY;
+        flake.x += flake.speedX;
+
+        if (flake.y > height) {
+          flake.y = -10;
+          flake.x = Math.random() * width;
+        }
+      });
+      requestAnimationFrame(drawSnow);
+    }
+    drawSnow();
+  </script>
+</body>
+</html>
