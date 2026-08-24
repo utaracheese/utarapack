@@ -41,6 +41,9 @@
       max-width: 1400px;
       margin: 0 auto;
       padding: 24px;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
 
     /* Top bar */
@@ -65,7 +68,7 @@
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
-      user-select: text; /* Cho phép bôi đen copy */
+      user-select: text;
       display: inline-flex;
       align-items: center;
       gap: 6px;
@@ -128,6 +131,7 @@
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
       gap: 24px;
+      flex: 1;
     }
 
     /* CARD PACK */
@@ -260,6 +264,18 @@
       text-overflow: ellipsis;
       width: 100%;
       display: block;
+    }
+
+    /* DÒNG LƯU Ý SIÊU NHỎ CHÂN WEB */
+    .footer-note {
+      text-align: center;
+      margin-top: 40px;
+      padding: 8px 12px;
+      font-size: 0.74rem;
+      color: rgba(15, 23, 42, 0.65);
+      font-weight: 500;
+      line-height: 1.5;
+      user-select: text;
     }
 
     /* MODAL POPUP XEM FULL THÔNG TIN */
@@ -415,10 +431,10 @@
   <div class="container">
     <!-- Top Bar -->
     <div class="top-bar">
-      <!-- Gmail ở góc trên bên trái (có thể bôi đen copy tự nhiên) -->
+      <!-- Gmail ở góc trên bên trái -->
       <div class="contact-email">
         <span>✉️</span>
-        <span>thanhbinhanhduong2@gmail.com</span> <!-- Thay đổi địa chỉ Gmail của bạn tại đây -->
+        <span>thanhbinhanhduong2@gmail.com</span>
       </div>
 
       <!-- TikTok Profile ở góc phải -->
@@ -435,6 +451,11 @@
 
     <!-- Danh sách Pack Cards -->
     <div class="gallery-grid" id="packGrid"></div>
+
+    <!-- Dòng lưu ý siêu nhỏ dưới chân trang -->
+    <div class="footer-note">
+      Lưu ý : Do tui mới làm pack nên chưa hiểu rõ cách hoạt động, mọi người không chạy được pack hãy thử giải nén ra xong hãng dùng nhe. Pack do cheese tự làm và các ảnh anime trên pinterest, iuu mọi người ❤
+    </div>
   </div>
 
   <!-- Modal Chi Tiết -->
