@@ -46,8 +46,29 @@
     /* Top bar */
     .top-bar {
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
+      align-items: center;
       margin-bottom: 28px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* Gmail ở góc trái */
+    .contact-email {
+      font-size: 0.85rem;
+      color: #1e293b;
+      font-weight: 500;
+      background: rgba(255, 255, 255, 0.4);
+      padding: 8px 16px;
+      border-radius: 50px;
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+      user-select: text; /* Cho phép bôi đen copy */
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .tiktok-profile {
@@ -163,7 +184,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center center; /* Căn giữa tâm ảnh */
+      object-position: center center;
       display: block;
     }
 
@@ -394,6 +415,13 @@
   <div class="container">
     <!-- Top Bar -->
     <div class="top-bar">
+      <!-- Gmail ở góc trên bên trái (có thể bôi đen copy tự nhiên) -->
+      <div class="contact-email">
+        <span>✉️</span>
+        <span>thanhbinhanhduong2@gmail.com</span> <!-- Thay đổi địa chỉ Gmail của bạn tại đây -->
+      </div>
+
+      <!-- TikTok Profile ở góc phải -->
       <a href="https://www.tiktok.com/@utara2613" target="_blank" class="tiktok-profile">
         <div class="avatar-wrapper">
           <img src="assets/avt.png" onerror="this.src='https://api.dicebear.com/7.x/notionists/svg?seed=utara'" alt="Avatar">
@@ -491,9 +519,39 @@
           "assets/aris10.png",
           "assets/aris11.png",
         ],
-        desc: "Animation thẻ ngân hàng kính tối sang trọng dùng cho edit video.",
+        desc: "Tải pack Aris Tendou tại link bên dưới này.",
         link: "https://link4m.net/TbMqts"
-      }
+      },
+      {
+        title: "Pack Hutao",
+        images: [
+          "assets/hutao1.png",
+          "assets/hutao2.png",
+          "assets/hutao3.png",
+          "assets/hutao4.png",
+          "assets/hutao5.png",
+          "assets/hutao6.png",
+          "assets/hutao7.png",
+          "assets/hutao8.png",
+        ],
+        desc: "Tải pack Hutao. Pack hutao mình khuyên mọi người không nên tải hoặc chỉ nên tải cho đẹp. lý do vì khi làm pack mình chưa tối ưu nên nó sẽ khiến game của mọi người rất lag",
+        link: "https://link4m.org/LSMiM"
+      },
+      {
+        title: "Pack genshin210",
+        images: [
+          "assets/gen2101.png",
+          "assets/gen2102.png",
+          "assets/gen2103.png",
+          "assets/gen2104.png",
+          "assets/gen2105.png",
+          "assets/gen2106.png",
+          "assets/gen2107.png",
+          "assets/gen2108.png",
+        ],
+        desc: "Pack genshin 210, mình chưa dùng hay làm pack 210 bao giờ nên chưa biết mọi người muốn kiểu gì có gì không được hãy nhắn email để mình sửa nhe <3(mà không phải mình trong sáng đâu mà sợ bama biết)",
+        link: "https://link4m.org/8mzEed"
+      },
     ];
 
     /* ========================================================
@@ -627,14 +685,12 @@
       modalTotalSlides = pack.images.length;
       modalCurrentIdx = initialImgIdx;
 
-      // Render danh sách ảnh cho Modal
       modalTrack.innerHTML = pack.images.map(img => `
         <div class="carousel-slide">
           <img src="${img}" onerror="this.src='${defaultPlaceholder}'" alt="preview">
         </div>
       `).join('');
 
-      // Render dots và hiển thị/ẩn nút next-prev
       if (modalTotalSlides > 1) {
         modalPrev.style.display = 'flex';
         modalNext.style.display = 'flex';
