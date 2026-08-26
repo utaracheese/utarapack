@@ -57,7 +57,7 @@
       margin-bottom: 20px;
       gap: 12px;
       flex-wrap: wrap;
-      flex-shrink: 0; /* Không bị co lại */
+      flex-shrink: 0;
     }
 
     /* Gmail ở góc trái */
@@ -76,6 +76,48 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
+    }
+
+    /* THANH GẠT JAVA / BEDROCK */
+    .version-toggle-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .version-switch {
+      display: flex;
+      background: rgba(255, 255, 255, 0.38);
+      padding: 4px;
+      border-radius: 50px;
+      border: 1px solid rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+      gap: 4px;
+    }
+
+    .switch-btn {
+      border: none;
+      background: transparent;
+      padding: 7px 24px;
+      border-radius: 50px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #334155;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+      user-select: none;
+    }
+
+    .switch-btn:hover {
+      color: #0f172a;
+    }
+
+    .switch-btn.active {
+      background: rgba(255, 255, 255, 0.92);
+      color: #0f172a;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
     }
 
     .tiktok-profile {
@@ -136,7 +178,7 @@
       grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
       gap: 24px;
       flex: 1;
-      overflow-y: auto; /* Cho phép cuộn */
+      overflow-y: auto;
       padding: 10px 10px 20px 4px;
       scroll-behavior: smooth;
     }
@@ -172,6 +214,12 @@
       flex-direction: column;
       user-select: none;
       height: fit-content;
+      animation: fadeIn 0.35s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .pack-card:hover {
@@ -181,7 +229,7 @@
       border-color: rgba(255, 255, 255, 0.9);
     }
 
-    /* SLIDER ẢNH (DÙNG CHUNG CARD & MODAL) */
+    /* SLIDER ẢNH */
     .carousel-container {
       width: 100%;
       height: 220px;
@@ -216,7 +264,6 @@
       display: block;
     }
 
-    /* Nút mũi tên chuyển ảnh */
     .carousel-nav {
       position: absolute;
       top: 50%;
@@ -249,7 +296,6 @@
     .carousel-prev { left: 10px; }
     .carousel-next { right: 10px; }
 
-    /* Chấm chỉ số ảnh (Dots) */
     .carousel-dots {
       position: absolute;
       bottom: 10px;
@@ -274,7 +320,6 @@
       border-radius: 6px;
     }
 
-    /* TIÊU ĐỀ THU GỌN VỚI DẤU "..." */
     .card-footer {
       padding: 12px 6px 4px 6px;
     }
@@ -300,7 +345,8 @@
       font-weight: 500;
       line-height: 1.4;
       user-select: text;
-      flex-shrink: 0; /* Giữ cố định kích thước và vị trí dưới chân */
+      flex-shrink: 0;
+      transition: opacity 0.2s ease;
     }
 
     /* MODAL POPUP */
@@ -455,11 +501,21 @@
   <div class="container">
     <!-- Top Bar (Cố định ở trên) -->
     <div class="top-bar">
+      <!-- Nút Gmail bên trái -->
       <div class="contact-email">
         <span>✉️</span>
         <span>thanhbinhanhduong2@gmail.com</span>
       </div>
 
+      <!-- NÚT GẠT CHUYỂN JAVA / BEDROCK Ở GIỮA -->
+      <div class="version-toggle-container">
+        <div class="version-switch">
+          <button class="switch-btn active" id="tabJava" onclick="switchVersion('java')">Java</button>
+          <button class="switch-btn" id="tabBedrock" onclick="switchVersion('bedrock')">Bedrock</button>
+        </div>
+      </div>
+
+      <!-- Nút Profile TikTok bên phải -->
       <a href="https://www.tiktok.com/@utara2613" target="_blank" class="tiktok-profile">
         <div class="avatar-wrapper">
           <img src="assets/avt.png" onerror="this.src='https://api.dicebear.com/7.x/notionists/svg?seed=utara'" alt="Avatar">
@@ -474,10 +530,8 @@
     <!-- Danh sách Pack Cards (Chỉ vùng này cuộn) -->
     <div class="gallery-grid" id="packGrid"></div>
 
-    <!-- Dòng lưu ý (Cố định ở dưới) -->
-    <div class="footer-note">
-      Lưu ý : Do tui mới làm pack nên chưa hiểu rõ cách hoạt động, mọi người không chạy được pack hãy thử giải nén ra xong hãng dùng nhe. Pack do cheese tự làm và các ảnh anime trên pinterest, iuu mọi người ❤
-    </div>
+    <!-- Dòng lưu ý thay đổi linh hoạt theo Java / Bedrock -->
+    <div class="footer-note" id="footerNote"></div>
   </div>
 
   <!-- Modal Chi Tiết -->
@@ -502,7 +556,14 @@
   </div>
 
   <script>
-    const packList = [
+    // NỘI DUNG LƯU Ý CHO TỪNG PHIÊN BẢN (Bạn có thể sửa chữ ở đây)
+    const notes = {
+      java: "Lưu ý : Do tui mới làm pack nên chưa hiểu rõ cách hoạt động, mọi người không chạy được pack hãy thử giải nén ra xong hãng dùng nhe. Pack do cheese tự làm và các ảnh anime trên pinterest, iuu mọi người ❤",
+      bedrock: "Mình không đủ khả năng để làm các gui nhe mọi người, mọi người nếu tải chơi có thể chơi chỉ có sky thui nhe ❤"
+    };
+
+    // DANH SÁCH PACK JAVA
+    const javaPackList = [
       {
         title: "Pack alya",
         images: [
@@ -613,93 +674,135 @@
       },
     ];
 
+    // DANH SÁCH PACK BEDROCK (CARD MẪU)
+    const bedrockPackList = [
+      {
+        title: "combo Sky pack genshin",
+        images: [
+          "assets/gen2101.png",
+          "assets/gen2102.png",
+          "assets/gen2108.png",
+        ],
+        desc: "combo Sky pack genshin",
+        link: "https://link4m.net/3azIrmOG"
+      },
+    ];
+
     const packGrid = document.getElementById('packGrid');
+    const footerNote = document.getElementById('footerNote');
     const defaultPlaceholder = "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&q=80";
 
-    packList.forEach((pack) => {
-      const card = document.createElement('div');
-      card.className = 'pack-card';
+    // HÀM HIỂN THỊ DANH SÁCH PACK RA MÀN HÌNH
+    function renderPacks(list) {
+      packGrid.innerHTML = ''; 
 
-      let currentIndex = 0;
-      let intervalId = null;
-      const totalImages = pack.images.length;
+      list.forEach((pack) => {
+        const card = document.createElement('div');
+        card.className = 'pack-card';
 
-      const slidesHtml = pack.images.map(img => `
-        <div class="carousel-slide">
-          <img src="${img}" onerror="this.src='${defaultPlaceholder}'" alt="pack">
-        </div>
-      `).join('');
+        let currentIndex = 0;
+        let intervalId = null;
+        const totalImages = pack.images.length;
 
-      const dotsHtml = totalImages > 1 ? `
-        <div class="carousel-dots">
-          ${pack.images.map((_, i) => `<div class="dot ${i === 0 ? 'active' : ''}"></div>`).join('')}
-        </div>
-      ` : '';
+        const slidesHtml = pack.images.map(img => `
+          <div class="carousel-slide">
+            <img src="${img}" onerror="this.src='${defaultPlaceholder}'" alt="pack">
+          </div>
+        `).join('');
 
-      const navHtml = totalImages > 1 ? `
-        <button class="carousel-nav carousel-prev">&#10094;</button>
-        <button class="carousel-nav carousel-next">&#10095;</button>
-      ` : '';
+        const dotsHtml = totalImages > 1 ? `
+          <div class="carousel-dots">
+            ${pack.images.map((_, i) => `<div class="dot ${i === 0 ? 'active' : ''}"></div>`).join('')}
+          </div>
+        ` : '';
 
-      card.innerHTML = `
-        <div class="carousel-container">
-          <div class="carousel-track">${slidesHtml}</div>
-          ${navHtml}
-          ${dotsHtml}
-        </div>
-        <div class="card-footer">
-          <span class="card-title" title="${pack.title}">${pack.title}</span>
-        </div>
-      `;
+        const navHtml = totalImages > 1 ? `
+          <button class="carousel-nav carousel-prev">&#10094;</button>
+          <button class="carousel-nav carousel-next">&#10095;</button>
+        ` : '';
 
-      const track = card.querySelector('.carousel-track');
-      const dots = card.querySelectorAll('.dot');
+        card.innerHTML = `
+          <div class="carousel-container">
+            <div class="carousel-track">${slidesHtml}</div>
+            ${navHtml}
+            ${dotsHtml}
+          </div>
+          <div class="card-footer">
+            <span class="card-title" title="${pack.title}">${pack.title}</span>
+          </div>
+        `;
 
-      function updateSlide(idx) {
-        currentIndex = idx;
-        track.style.transform = `translateX(-${currentIndex * 100}%)`;
-        dots.forEach((d, i) => d.classList.toggle('active', i === currentIndex));
-      }
+        const track = card.querySelector('.carousel-track');
+        const dots = card.querySelectorAll('.dot');
 
-      function nextSlide() {
-        let nextIdx = (currentIndex + 1) % totalImages;
-        updateSlide(nextIdx);
-      }
+        function updateSlide(idx) {
+          currentIndex = idx;
+          track.style.transform = `translateX(-${currentIndex * 100}%)`;
+          dots.forEach((d, i) => d.classList.toggle('active', i === currentIndex));
+        }
 
-      function prevSlide() {
-        let prevIdx = (currentIndex - 1 + totalImages) % totalImages;
-        updateSlide(prevIdx);
-      }
+        function nextSlide() {
+          let nextIdx = (currentIndex + 1) % totalImages;
+          updateSlide(nextIdx);
+        }
 
-      if (totalImages > 1) {
-        card.querySelector('.carousel-next').addEventListener('click', (e) => {
-          e.stopPropagation();
-          nextSlide();
+        function prevSlide() {
+          let prevIdx = (currentIndex - 1 + totalImages) % totalImages;
+          updateSlide(prevIdx);
+        }
+
+        if (totalImages > 1) {
+          card.querySelector('.carousel-next').addEventListener('click', (e) => {
+            e.stopPropagation();
+            nextSlide();
+          });
+          card.querySelector('.carousel-prev').addEventListener('click', (e) => {
+            e.stopPropagation();
+            prevSlide();
+          });
+
+          card.addEventListener('mouseenter', () => {
+            intervalId = setInterval(nextSlide, 1500);
+          });
+
+          card.addEventListener('mouseleave', () => {
+            if (intervalId) {
+              clearInterval(intervalId);
+              intervalId = null;
+            }
+          });
+        }
+
+        card.addEventListener('click', () => {
+          openModal(pack, currentIndex);
         });
-        card.querySelector('.carousel-prev').addEventListener('click', (e) => {
-          e.stopPropagation();
-          prevSlide();
-        });
 
-        card.addEventListener('mouseenter', () => {
-          intervalId = setInterval(nextSlide, 1500);
-        });
-
-        card.addEventListener('mouseleave', () => {
-          if (intervalId) {
-            clearInterval(intervalId);
-            intervalId = null;
-          }
-        });
-      }
-
-      card.addEventListener('click', () => {
-        openModal(pack, currentIndex);
+        packGrid.appendChild(card);
       });
+    }
 
-      packGrid.appendChild(card);
-    });
+    // CHUYỂN ĐỔI TAB JAVA VÀ BEDROCK
+    function switchVersion(type) {
+      const tabJava = document.getElementById('tabJava');
+      const tabBedrock = document.getElementById('tabBedrock');
 
+      if (type === 'java') {
+        tabJava.classList.add('active');
+        tabBedrock.classList.remove('active');
+        renderPacks(javaPackList);
+        footerNote.textContent = notes.java; // Đổi sang lưu ý của Java
+      } else {
+        tabBedrock.classList.add('active');
+        tabJava.classList.remove('active');
+        renderPacks(bedrockPackList);
+        footerNote.textContent = notes.bedrock; // Đổi sang lưu ý của Bedrock
+      }
+    }
+
+    // Khởi tạo hiển thị tab Java mặc định ban đầu
+    switchVersion('java');
+
+    // LOGIC MODAL CHI TIẾT
     const modal = document.getElementById('detailModal');
     const btnClose = document.getElementById('btnClose');
     const modalTrack = document.getElementById('modalCarouselTrack');
@@ -783,7 +886,7 @@
       });
     });
 
-    /* Tuyết rơi */
+    /* HIỆU ỨNG TUYẾT RƠI */
     const canvas = document.getElementById('snow-canvas');
     const ctx = canvas.getContext('2d');
     let width = canvas.width = window.innerWidth;
