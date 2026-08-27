@@ -120,6 +120,13 @@
       box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
     }
 
+    /* KHU VỰC BÊN PHẢI (TIKTOK + NÚT THƯ) */
+    .top-bar-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
     .tiktok-profile {
       display: flex;
       align-items: center;
@@ -172,6 +179,57 @@
       font-weight: 500;
     }
 
+    /* NÚT HỘP THƯ */
+    .mail-btn {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      background: rgba(255, 255, 255, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      border-radius: 50%;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      cursor: pointer;
+      font-size: 1.25rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+      user-select: none;
+    }
+
+    .mail-btn:hover {
+      transform: translateY(-2px) scale(1.05);
+      background: rgba(255, 255, 255, 0.65);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    /* Chấm đỏ thông báo */
+    .red-dot {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      width: 11px;
+      height: 11px;
+      background-color: #ef4444;
+      border-radius: 50%;
+      border: 2px solid #ffffff;
+      display: none;
+      box-shadow: 0 0 8px rgba(239, 68, 68, 0.9);
+    }
+
+    .red-dot.show {
+      display: block;
+      animation: pulseDot 1.5s infinite;
+    }
+
+    @keyframes pulseDot {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.25); opacity: 0.8; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
     /* GRID DANH SÁCH PACK - KHU VỰC CUỘN DUY NHẤT */
     .gallery-grid {
       display: grid;
@@ -183,7 +241,6 @@
       scroll-behavior: smooth;
     }
 
-    /* Tùy chỉnh thanh cuộn đẹp mắt cho Card Grid */
     .gallery-grid::-webkit-scrollbar {
       width: 8px;
     }
@@ -349,7 +406,7 @@
       transition: opacity 0.2s ease;
     }
 
-    /* MODAL POPUP */
+    /* MODAL POPUP DÙNG CHUNG */
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -515,16 +572,24 @@
         </div>
       </div>
 
-      <!-- Nút Profile TikTok bên phải -->
-      <a href="https://www.tiktok.com/@utara2613" target="_blank" class="tiktok-profile">
-        <div class="avatar-wrapper">
-          <img src="assets/avt.png" onerror="this.src='https://api.dicebear.com/7.x/notionists/svg?seed=utara'" alt="Avatar">
-        </div>
-        <div class="profile-info">
-          <span class="profile-name">utara🧀</span>
-          <span class="profile-id">utara2613</span>
-        </div>
-      </a>
+      <!-- Khu vực bên phải: Nút Profile TikTok & Nút Hộp Thư -->
+      <div class="top-bar-right">
+        <a href="https://www.tiktok.com/@utara2613" target="_blank" class="tiktok-profile">
+          <div class="avatar-wrapper">
+            <img src="assets/avt.png" onerror="this.src='https://api.dicebear.com/7.x/notionists/svg?seed=utara'" alt="Avatar">
+          </div>
+          <div class="profile-info">
+            <span class="profile-name">utara🧀</span>
+            <span class="profile-id">utara2613</span>
+          </div>
+        </a>
+
+        <!-- Nút Hộp Thư có chấm đỏ thông báo -->
+        <button class="mail-btn" id="mailBtn" title="Hộp thư thông báo">
+          <span>💌</span>
+          <span class="red-dot" id="mailRedDot"></span>
+        </button>
+      </div>
     </div>
 
     <!-- Danh sách Pack Cards (Chỉ vùng này cuộn) -->
@@ -534,7 +599,7 @@
     <div class="footer-note" id="footerNote"></div>
   </div>
 
-  <!-- Modal Chi Tiết -->
+  <!-- Modal Chi Tiết Pack -->
   <div class="modal-overlay" id="detailModal">
     <div class="modal-content">
       <button class="btn-close" id="btnClose">&times;</button>
@@ -555,8 +620,37 @@
     </div>
   </div>
 
+  <!-- Modal Hộp Thư (Mailbox Modal) -->
+  <div class="modal-overlay" id="mailModal">
+    <div class="modal-content" style="max-width: 480px;">
+      <button class="btn-close" id="btnCloseMail">&times;</button>
+      
+      <div style="font-size: 2.2rem; text-align: center; margin-bottom: 6px;">💌</div>
+      <h2 class="modal-title" id="mailModalTitle" style="text-align: center;"></h2>
+      <div class="modal-desc" id="mailModalBody" style="white-space: pre-line; max-height: 220px; line-height: 1.6;"></div>
+      
+      <div class="modal-actions">
+        <button id="btnReadMail" class="btn btn-primary">Đã hiểu ✨</button>
+      </div>
+    </div>
+  </div>
+
   <script>
-    // NỘI DUNG LƯU Ý CHO TỪNG PHIÊN BẢN (Bạn có thể sửa chữ ở đây)
+    // ========================================================
+    // NỘI DUNG HỘP THƯ (KHI BẠN SỬA ĐOẠN NÀY VÀ UP LÊN GITHUB,
+    // CHẤM ĐỎ SẼ TỰ ĐỘNG XUẤT HIỆN LẠI CHO MỌI NGƯỜI ĐỌC)
+    // ========================================================
+    const letterData = {
+      title: "Lời nhắn từ utara🧀",
+      content: `Chào mọi người! Nếu mà mọi người muốn thêm pack vô danh sách random(nếu chưa có) mọi người hãy nhắn qua gmail cho mình nha
+
+Khi bạn muốn góp ý tưởng hãy nhắn như sau pack(type), có thể nhập nhiều pack nha.
+Pack : mọi người nhập tên nhân vật waifu của mình.
+Type : mọi người nhập thể loại hent hoặc ani.
+(Về phần pack hent mình sẽ chỉ dùng những bộ/game nổi tiếng nhiều nhân vật vì ảnh hent rất ít ảnh)`
+    };
+
+    // NỘI DUNG LƯU Ý CHO TỪNG PHIÊN BẢN
     const notes = {
       java: "Lưu ý : Do tui mới làm pack nên chưa hiểu rõ cách hoạt động, mọi người không chạy được pack hãy thử giải nén ra xong hãng dùng nhe. Pack do cheese tự làm và các ảnh anime trên pinterest, iuu mọi người ❤",
       bedrock: "Mình không đủ khả năng để làm các gui nhe mọi người, mọi người nếu tải chơi có thể chơi chỉ có sky thui nhe ❤"
@@ -567,6 +661,7 @@
       {
         title: "Pack alya",
         images: [
+          "assets/alya1.png",
           "assets/alya2.png",
           "assets/alya3.png",
           "assets/alya4.png",
@@ -662,7 +757,6 @@
           "assets/gg5.png",
           "assets/gg6.png",
           "assets/gg7.png",
-          "assets/gg8.png",
           "assets/gg9.png",
           "assets/gg10.png",
           "assets/gg11.png",
@@ -672,9 +766,24 @@
         desc: "Pack gawr gura, tải bằng link dưới nhe",
         link: "https://link4m.org/SHOJKW"
       },
+      {
+        title: "Pack Hoshino",
+        images: [
+          "assets/hoshino2.png",
+          "assets/hoshino3.png",
+          "assets/hoshino4.png",
+          "assets/hoshino5.png",
+          "assets/hoshino6.png",
+          "assets/hoshino7.png",
+          "assets/hoshino8.png",
+          "assets/hoshino9.png",
+        ],
+        desc: "Pack hoshino, download bằng link dưới nhe",
+        link: "https://link4m.net/Rh74Q"
+      },
     ];
 
-    // DANH SÁCH PACK BEDROCK (CARD MẪU)
+    // DANH SÁCH PACK BEDROCK
     const bedrockPackList = [
       {
         title: "combo Sky pack genshin",
@@ -692,7 +801,7 @@
     const footerNote = document.getElementById('footerNote');
     const defaultPlaceholder = "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&q=80";
 
-    // HÀM HIỂN THỊ DANH SÁCH PACK RA MÀN HÌNH
+    // HÀM HIỂN THỊ DANH SÁCH PACK
     function renderPacks(list) {
       packGrid.innerHTML = ''; 
 
@@ -790,19 +899,19 @@
         tabJava.classList.add('active');
         tabBedrock.classList.remove('active');
         renderPacks(javaPackList);
-        footerNote.textContent = notes.java; // Đổi sang lưu ý của Java
+        footerNote.textContent = notes.java;
       } else {
         tabBedrock.classList.add('active');
         tabJava.classList.remove('active');
         renderPacks(bedrockPackList);
-        footerNote.textContent = notes.bedrock; // Đổi sang lưu ý của Bedrock
+        footerNote.textContent = notes.bedrock;
       }
     }
 
-    // Khởi tạo hiển thị tab Java mặc định ban đầu
+    // Khởi tạo tab Java mặc định
     switchVersion('java');
 
-    // LOGIC MODAL CHI TIẾT
+    // LOGIC MODAL CHI TIẾT PACK
     const modal = document.getElementById('detailModal');
     const btnClose = document.getElementById('btnClose');
     const modalTrack = document.getElementById('modalCarouselTrack');
@@ -884,6 +993,53 @@
           btnCopyLink.textContent = "📋 Sao chép Link";
         }, 2000);
       });
+    });
+
+    // ========================================================
+    // LOGIC HỘP THƯ & TỰ ĐỘNG RESET CHẤM ĐỎ KHI NỘI DUNG THAY ĐỔI
+    // ========================================================
+    function hashString(str) {
+      let hash = 0;
+      for (let i = 0; i < str.length; i++) {
+        const char = str.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash |= 0;
+      }
+      return hash.toString();
+    }
+
+    const currentLetterHash = hashString(letterData.title + "::" + letterData.content);
+    const readLetterHash = localStorage.getItem('utara_read_letter_hash');
+    const mailRedDot = document.getElementById('mailRedDot');
+    const mailBtn = document.getElementById('mailBtn');
+    const mailModal = document.getElementById('mailModal');
+    const btnCloseMail = document.getElementById('btnCloseMail');
+    const btnReadMail = document.getElementById('btnReadMail');
+
+    // Kiểm tra nếu nội dung mới chưa được đọc -> Hiện chấm đỏ
+    if (readLetterHash !== currentLetterHash) {
+      mailRedDot.classList.add('show');
+    }
+
+    function openMailModal() {
+      document.getElementById('mailModalTitle').textContent = letterData.title;
+      document.getElementById('mailModalBody').textContent = letterData.content;
+      mailModal.classList.add('active');
+
+      // Khi người dùng bấm mở thư -> Đánh dấu đã đọc và tắt chấm đỏ
+      localStorage.setItem('utara_read_letter_hash', currentLetterHash);
+      mailRedDot.classList.remove('show');
+    }
+
+    function closeMailModal() {
+      mailModal.classList.remove('active');
+    }
+
+    mailBtn.addEventListener('click', openMailModal);
+    btnCloseMail.addEventListener('click', closeMailModal);
+    btnReadMail.addEventListener('click', closeMailModal);
+    mailModal.addEventListener('click', (e) => {
+      if (e.target === mailModal) closeMailModal();
     });
 
     /* HIỆU ỨNG TUYẾT RƠI */
