@@ -194,7 +194,19 @@ const javaPackList = [
 // ========================================================
 // 2. DANH SÁCH PACK BEDROCK CHÍNH
 // ========================================================
+
 const bedrockPackList = [
+  {
+    title: "Pack honkai210",
+    images: [
+      "assets/honk1.jpg",
+      "assets/honk2.jpg",
+      "assets/honk3.jpg",
+      "assets/honk4.jpg",
+    ],
+    desc: "Pack Honkai 210, tải xuống bằng link dưới đây nhe.",
+    link: "https://link4m.net/3nETDYY"
+  },
   {
     title: "combo Sky pack genshin",
     images: [
