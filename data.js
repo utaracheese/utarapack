@@ -112,6 +112,16 @@ const javaPackList = [
     link: "https://link4m.org/of6KTBPw"
   },
   {
+    title: "Pack Siesta",
+    images: [
+      "assets/sis1.png",
+      "assets/sis2.png",
+      "assets/sis3.png"
+    ],
+    desc: "Download pack tại link dưới đây",
+    link: "https://link4m.org/A6KZtDEn"
+  },
+  {
     title: "Pack Nakano Miku",
     images: [
       "assets/miku1.png",
