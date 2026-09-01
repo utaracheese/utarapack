@@ -62,6 +62,23 @@ const javaPackList = [
     link: "https://link4m.net/4VhcfzFr"
   },
   {
+    title: "Pack Waguri",
+    images: [
+      "assets/wag1.png",
+      "assets/wag2.png",
+      "assets/wag3.png",
+      "assets/wag4.png",
+      "assets/wag5.png",
+      "assets/wag6.png",
+      "assets/wag7.png",
+      "assets/wag9.png",
+      "assets/wag10.png",
+      "assets/wag11.png",
+    ],
+    desc: "Pack Waguri, download bằng link dưới nhe",
+    link: "https://link4m.org/0p421"
+  },
+  {
     title: "Pack Mahiru",
     images: [
       "assets/mah1.png",
