@@ -1,12 +1,12 @@
 const packGrid = document.getElementById('packGrid');
 const footerNote = document.getElementById('footerNote');
 const versionToggleContainer = document.getElementById('versionToggleContainer');
-const singlePackBtn = document.getElementById('singlePackBtn');
+const cosplayPackBtn = document.getElementById('cosplayPackBtn');
 const defaultPlaceholder = "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&q=80";
 
-// Trạng thái hiện tại: version ('java' | 'bedrock') và chế độ kho lẻ (true / false)
+// Trạng thái hiện tại: version ('java' | 'bedrock') và chế độ Cosplay (true / false)
 let currentVersion = 'java';
-let isSinglePackMode = false;
+let isCosplayPackMode = false;
 
 // HÀM HIỂN THỊ DANH SÁCH PACK
 function renderPacks(list) {
@@ -15,7 +15,7 @@ function renderPacks(list) {
   if (!list || list.length === 0) {
     packGrid.innerHTML = `
       <div class="empty-state">
-        <div style="font-size: 2.2rem; margin-bottom: 8px;">📦</div>
+        <div style="font-size: 2.2rem; margin-bottom: 8px;">🎭</div>
         <div>Chưa có pack nào ở mục này nha!</div>
       </div>
     `;
@@ -47,6 +47,11 @@ function renderPacks(list) {
       <button class="carousel-nav carousel-next">&#10095;</button>
     ` : '';
 
+    // Khối hiển thị nguồn ảnh nếu pack có khai báo `source`
+    const sourceHtml = pack.source ? `
+      <div class="card-source" title="${pack.source}">${pack.source}</div>
+    ` : '';
+
     card.innerHTML = `
       <div class="carousel-container">
         <div class="carousel-track">${slidesHtml}</div>
@@ -55,6 +60,7 @@ function renderPacks(list) {
       </div>
       <div class="card-footer">
         <span class="card-title" title="${pack.title}">${pack.title}</span>
+        ${sourceHtml}
       </div>
     `;
 
@@ -109,18 +115,19 @@ function renderPacks(list) {
 
 // CẬP NHẬT GIAO DIỆN
 function updateView() {
-  if (isSinglePackMode) {
+  if (isCosplayPackMode) {
     // Ẩn thanh chọn Java / Bedrock
     versionToggleContainer.classList.add('hidden');
-    singlePackBtn.classList.add('active');
+    cosplayPackBtn.classList.add('active');
     
-    // Hiển thị danh sách pack lẻ
-    renderPacks(window.singlePackList || []);
-    footerNote.textContent = notes.single || "Kho pack lẻ tổng hợp ❤";
+    // Hiển thị danh sách pack Cosplay (Gọi trực tiếp cosplayPackList)
+    const list = (typeof cosplayPackList !== 'undefined') ? cosplayPackList : [];
+    renderPacks(list);
+    footerNote.textContent = notes.cosplay || "Các pack cosplay mình sẽ không đăng lên tiktok để thông báo được nên mọi người có thể vào đây để kiểm tra theo thời gian nha.";
   } else {
     // Hiện lại thanh chọn Java / Bedrock
     versionToggleContainer.classList.remove('hidden');
-    singlePackBtn.classList.remove('active');
+    cosplayPackBtn.classList.remove('active');
 
     // Hiển thị danh sách Java hoặc Bedrock
     if (currentVersion === 'java') {
@@ -135,15 +142,16 @@ function updateView() {
 
 // CHUYỂN ĐỔI TAB JAVA / BEDROCK
 function switchVersion(type) {
+  isCosplayPackMode = false;
   currentVersion = type;
   document.getElementById('tabJava').classList.toggle('active', type === 'java');
   document.getElementById('tabBedrock').classList.toggle('active', type === 'bedrock');
   updateView();
 }
 
-// BẬT / TẮT CHẾ ĐỘ KHO PACK LẺ
-function toggleSinglePackMode() {
-  isSinglePackMode = !isSinglePackMode;
+// BẬT / TẮT CHẾ ĐỘ KHO PACK COSPLAY
+function toggleCosplayPackMode() {
+  isCosplayPackMode = !isCosplayPackMode;
   updateView();
 }
 
@@ -160,6 +168,7 @@ const modalDots = document.getElementById('modalDots');
 const modalPrev = document.getElementById('modalPrev');
 const modalNext = document.getElementById('modalNext');
 const modalTitle = document.getElementById('modalTitle');
+const modalSource = document.getElementById('modalSource');
 const modalDesc = document.getElementById('modalDesc');
 const modalLinkBtn = document.getElementById('modalLinkBtn');
 const btnCopyLink = document.getElementById('btnCopyLink');
@@ -210,6 +219,15 @@ function openModal(pack, initialImgIdx = 0) {
   updateModalSlide(modalCurrentIdx);
 
   modalTitle.textContent = pack.title;
+
+  // Hiển thị nguồn ảnh trong modal nếu có
+  if (pack.source) {
+    modalSource.textContent = pack.source;
+    modalSource.style.display = 'block';
+  } else {
+    modalSource.style.display = 'none';
+  }
+
   modalDesc.textContent = pack.desc || "Không có mô tả chi tiết cho pack này.";
   modalLinkBtn.href = pack.link;
   currentActiveLink = pack.link;

@@ -274,21 +274,14 @@ const bedrockPackList = [
 // 3. KHO PACK LẺ (SINGLE PACKS)
 // Thêm các item/pack lẻ vào đây
 // ========================================================
-const singlePackList = [
+const cosplayPackList = [
   {
-    title: "Item lẻ - Kiếm Genshin",
+    title: "Pack Cosplay Fire Fly",
     images: [
-      "assets/gen2101.png"
+      "assets/cos/firefly.png",
     ],
-    desc: "Pack lẻ kiếm Genshin Impact",
-    link: "https://link4m.org/8mzEed"
-  },
-  {
-    title: "Sky lẻ - Genshin Sky",
-    images: [
-      "assets/gen2108.png"
-    ],
-    desc: "Bầu trời lẻ cho Minecraft",
-    link: "https://link4m.net/fl8J8"
+    desc: "Tải pack tại đây nhe",
+    source: "📷 Cosplayer: Machi馬吉\n🌐 Nguồn ảnh: cosplaytele (https://cosplaytele.com/firefly-13/) \n📌 Nhân vật: Fire Fly (Honkai Star Rail)",
+    link: "https://link4m.net/EHpNQL"
   }
 ];
