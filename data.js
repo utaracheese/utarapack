@@ -38,6 +38,30 @@ const javaPackList = [
     link: "https://link4m.org/8mzEed"
   },
   {
+    title: "Pack Blue Archiver",
+    images: [
+      "assets/blu1.png",
+      "assets/blu2.png",
+      "assets/blu3.png",
+      "assets/blu4.png",
+      "assets/blu5.png",
+      "assets/blu6.png",
+      "assets/blu7.png",
+      "assets/blu9.png",
+      "assets/blu10.png",
+      "assets/blu11.png",
+      "assets/blu12.png",
+      "assets/blu13.png",
+      "assets/blu14.png",
+      "assets/blu15.png",
+      "assets/blu16.png",
+      "assets/blu17.png",
+      "assets/blu18.png",
+    ],
+    desc: "Pack hentai Blue Archiver, download bằng link dưới nhe",
+    link: "https://link4m.org/DocKrNd"
+  },
+  {
     title: "Pack Honkai Star Rail 18+",
     images: [
       "assets/hon1.png",
