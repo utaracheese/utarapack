@@ -208,6 +208,18 @@ const javaPackList = [
 // ========================================================
 
 const bedrockPackList = [
+    {
+    title: "Pack Arya",
+    images: [
+      "assets/arbr.jpg",
+      "assets/arbr1.jpg",
+      "assets/arbr2.jpg",
+      "assets/arbr3.jpg",
+      "assets/arbr4.jpg",
+    ],
+    desc: "Pack Arya, tải xuống bằng link dưới đây nhe.",
+    link: "https://link4m.org/xun9wMZx"
+  },
   {
     title: "Pack blue",
     images: [

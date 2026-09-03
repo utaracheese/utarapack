@@ -247,6 +247,7 @@ const javaPackList = [
 // ========================================================
 
 const bedrockPackList = [
+
   {
     title: "Pack honkai210",
     images: [
