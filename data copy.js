@@ -23,27 +23,66 @@ const notes = {
 // ========================================================
 const javaPackList = [
   {
-    title: "Pack genshin",
+    title: "Pack genshin210",
     images: [
       "assets/gen2101.png",
+      "assets/gen2102.png",
+      "assets/gen2103.png",
+      "assets/gen2104.png",
+      "assets/gen2105.png",
+      "assets/gen2106.png",
+      "assets/gen2107.png",
+      "assets/gen2108.png",
     ],
-    desc: "Pack genshin download bằng link dưới đây.",
+    desc: "Pack genshin 210, mình chưa dùng hay làm pack 210 bao giờ nên chưa biết mọi người muốn kiểu gì có gì không được hãy nhắn email để mình sửa nhe <3(mà không phải mình trong sáng đâu mà sợ bama biết)",
     link: "https://link4m.org/8mzEed"
   },
   {
     title: "Pack Blue Archiver",
     images: [
       "assets/blu1.png",
+      "assets/blu2.png",
+      "assets/blu3.png",
+      "assets/blu4.png",
+      "assets/blu5.png",
+      "assets/blu6.png",
+      "assets/blu7.png",
+      "assets/blu9.png",
+      "assets/blu10.png",
+      "assets/blu11.png",
+      "assets/blu12.png",
+      "assets/blu13.png",
+      "assets/blu14.png",
+      "assets/blu15.png",
+      "assets/blu16.png",
+      "assets/blu17.png",
+      "assets/blu18.png",
     ],
     desc: "Pack hentai Blue Archiver, download bằng link dưới nhe",
     link: "https://link4m.org/DocKrNd"
   },
   {
-    title: "Pack Honkai Star Rail",
+    title: "Pack Honkai Star Rail 18+",
     images: [
       "assets/hon1.png",
+      "assets/hon2.png",
+      "assets/hon3.png",
+      "assets/hon4.png",
+      "assets/hon5.png",
+      "assets/hon6.png",
+      "assets/hon7.png",
+      "assets/hon9.png",
+      "assets/hon10.png",
+      "assets/hon11.png",
+      "assets/hon12.png",
+      "assets/hon13.png",
+      "assets/hon14.png",
+      "assets/hon15.png",
+      "assets/hon16.png",
+      "assets/hon17.png",
+      "assets/hon18.png",
     ],
-    desc: "Pack Honkai Star Rail, download bằng link dưới nhe",
+    desc: "Pack hentai Honkai Star Rail, download bằng link dưới nhe",
     link: "https://link4m.net/4VhcfzFr"
   },
   {
@@ -209,22 +248,14 @@ const javaPackList = [
 
 const bedrockPackList = [
   {
-    title: "Pack blue",
-    images: [
-      "assets/blu1.png",
-    ],
-    desc: "Pack Sky Blue archiver, tải xuống bằng link dưới đây nhe.",
-    link: "https://link4m.net/d8Im4OhB"
-  },
-  {
-    title: "Pack honkai",
+    title: "Pack honkai210",
     images: [
       "assets/honk1.jpg",
       "assets/honk2.jpg",
       "assets/honk3.jpg",
       "assets/honk4.jpg",
     ],
-    desc: "Pack Honkai , tải xuống bằng link dưới đây nhe.",
+    desc: "Pack Honkai 210, tải xuống bằng link dưới đây nhe.",
     link: "https://link4m.net/3nETDYY"
   },
   {
@@ -244,4 +275,13 @@ const bedrockPackList = [
 // Thêm các item/pack lẻ vào đây
 // ========================================================
 const cosplayPackList = [
+  {
+    title: "Pack Cosplay Fire Fly",
+    images: [
+      "assets/cos/firefly.png",
+    ],
+    desc: "Tải pack tại đây nhe",
+    source: "📷 Cosplayer: Machi馬吉\n🌐 Nguồn ảnh: cosplaytele (https://cosplaytele.com/firefly-13/) \n📌 Nhân vật: Fire Fly (Honkai Star Rail)",
+    link: "https://link4m.net/EHpNQL"
+  }
 ];
