@@ -209,14 +209,22 @@ const javaPackList = [
 
 const bedrockPackList = [
   {
-    title: "Pack honkai210",
+    title: "Pack blue",
+    images: [
+      "assets/blu1.png",
+    ],
+    desc: "Pack Sky Blue archiver, tải xuống bằng link dưới đây nhe.",
+    link: "https://link4m.net/d8Im4OhB"
+  },
+  {
+    title: "Pack honkai",
     images: [
       "assets/honk1.jpg",
       "assets/honk2.jpg",
       "assets/honk3.jpg",
       "assets/honk4.jpg",
     ],
-    desc: "Pack Honkai 210, tải xuống bằng link dưới đây nhe.",
+    desc: "Pack Honkai , tải xuống bằng link dưới đây nhe.",
     link: "https://link4m.net/3nETDYY"
   },
   {
