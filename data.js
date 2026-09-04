@@ -208,7 +208,18 @@ const javaPackList = [
 // ========================================================
 
 const bedrockPackList = [
-    {
+  {
+    title: "Pack Sky Gawr Gura",
+    images: [
+      "assets/gg10.jpg",
+      "assets/gg11.jpg",
+      "assets/gg12.jpg",
+      "assets/gg13.jpg",
+    ],
+    desc: "Pack Gawr Gura, tải xuống bằng link dưới đây nhe.",
+    link: "https://link4m.org/TgAXc2ir"
+  },
+  {
     title: "Pack Arya",
     images: [
       "assets/arbr.jpg",
