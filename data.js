@@ -13,7 +13,7 @@ Type : mọi người nhập thể loại hent hoặc ani.
 
 // NỘI DUNG LƯU Ý CHO TỪNG PHIÊN BẢN
 const notes = {
-  java: "Lưu ý : Do tui mới làm pack nên chưa hiểu rõ cách hoạt động, mọi người không chạy được pack hãy thử giải nén ra xong hãng dùng nhe. Pack do cheese tự làm và các ảnh anime trên pinterest, iuu mọi người ❤",
+  java: "Lưu ý : tui tìm ra cách để ae không cần giải nén pack rồi nên từ pack hutao reup trở đi ae cứ cho vô pack dùng thôi",
   bedrock: "Mình không đủ khả năng để làm các gui nhe mọi người, mọi người nếu tải chơi có thể chơi chỉ có sky thui nhe ❤",
   single: "Kho Pack Lẻ (Item, Sky, Textures, ...) được tách rời để mọi người dễ phối hợp sử dụng ❤"
 };
@@ -22,6 +22,21 @@ const notes = {
 // 1. DANH SÁCH PACK JAVA CHÍNH
 // ========================================================
 const javaPackList = [
+  {
+    title: "Pack Hutao Re",
+    images: [
+      "assets/hutao1.png",
+      "assets/hutao2.png",
+      "assets/hutao3.png",
+      "assets/hutao4.png",
+      "assets/hutao5.png",
+      "assets/hutao6.png",
+      "assets/hutao7.png",
+      "assets/hutao8.png",
+    ],
+    desc: "Tải pack Hutao ở link dưới nha (đây là bản làm lại để tránh lag, dù chỉ là 1 tí :Đ)",
+    link: "https://link4m.org/ytOENB34"
+  },
   {
     title: "Pack genshin",
     images: [
@@ -46,6 +61,7 @@ const javaPackList = [
     desc: "Pack Honkai Star Rail, download bằng link dưới nhe",
     link: "https://link4m.net/4VhcfzFr"
   },
+  
   {
     title: "Pack Waguri",
     images: [
