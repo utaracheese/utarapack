@@ -225,6 +225,21 @@ const javaPackList = [
 
 const bedrockPackList = [
   {
+    title: "Pack Hutao",
+    images: [
+      "assets/hutaoBR/hutao1.jpg",
+      "assets/hutaoBR/hutao2.jpg",
+      "assets/hutaoBR/hutao3.jpg",
+      "assets/hutaoBR/hutao4.jpg",
+      "assets/hutaoBR/hutao5.jpg",
+      "assets/hutaoBR/hutao6.jpg",
+      "assets/hutaoBR/hutao7.jpg",
+      "assets/hutaoBR/hutao8.jpg",
+    ],
+    desc: "Pack Hutao, tải xuống bằng link dưới đây nhe.",
+    link: "https://link4m.net/VBJe4"
+  },
+  {
     title: "Pack Sky Gawr Gura",
     images: [
       "assets/gg10.jpg",
