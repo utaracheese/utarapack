@@ -246,6 +246,18 @@ const javaPackList = [
 
 const bedrockPackList = [
   {
+    title: "Pack Frieren",
+    images: [
+      "assets/fri/fria.jpg",
+      "assets/fri/frib.jpg",
+      "assets/fri/fric.jpg",
+      "assets/fri/frid.jpg",
+      "assets/fri/frie.jpg",
+    ],
+    desc: "Pack Frieren, download bằng link dưới nhe",
+    link: "https://link4m.net/Dv7la"
+  },
+  {
     title: "Pack Hutao",
     images: [
       "assets/hutaoBR/hutao1.jpg",
@@ -263,10 +275,10 @@ const bedrockPackList = [
   {
     title: "Pack Sky Gawr Gura",
     images: [
-      "assets/gg10.jpg",
-      "assets/gg11.jpg",
-      "assets/gg12.jpg",
-      "assets/gg13.jpg",
+      "assets/gg10.png",
+      "assets/gg11.png",
+      "assets/gg12.png",
+      "assets/gg13.png",
     ],
     desc: "Pack Gawr Gura, tải xuống bằng link dưới đây nhe.",
     link: "https://link4m.org/TgAXc2ir"
