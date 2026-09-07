@@ -23,6 +23,27 @@ const notes = {
 // ========================================================
 const javaPackList = [
   {
+    title: "Pack Frieren",
+    images: [
+      "assets/fri/fri1.png",
+      "assets/fri/fri2.png",
+      "assets/fri/fri3.png",
+      "assets/fri/fri4.png",
+      "assets/fri/fri5.png",
+      "assets/fri/fri6.png",
+      "assets/fri/fri7.png",
+      "assets/fri/fri9.png",
+      "assets/fri/fri10.png",
+      "assets/fri/fri11.png",
+      "assets/fri/fri12.png",
+      "assets/fri/fri13.png",
+      "assets/fri/fri14.png",
+      "assets/fri/fri15.png",
+    ],
+    desc: "Pack Frieren, download bằng link dưới nhe",
+    link: "https://link4m.net/7xWsCt"
+  },
+  {
     title: "Pack Hutao Re",
     images: [
       "assets/hutao1.png",
