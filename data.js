@@ -23,6 +23,27 @@ const notes = {
 // ========================================================
 const javaPackList = [
   {
+    title: "Pack Furina",
+    images: [
+      "assets/furina/furina12.png",
+      "assets/furina/furina13.png",
+      "assets/furina/furina14.png",
+      "assets/furina/furina15.png",
+      "assets/furina/furina1.png",
+      "assets/furina/furina2.png",
+      "assets/furina/furina3.png",
+      "assets/furina/furina4.png",
+      "assets/furina/furina5.png",
+      "assets/furina/furina6.png",
+      "assets/furina/furina7.png",
+      "assets/furina/furina9.png",
+      "assets/furina/furina10.png",
+      "assets/furina/furina11.png",
+    ],
+    desc: "Pack Furina, download bằng link dưới nhe",
+    link: "https://link4m.net/8nZhyB5D"
+  },
+  {
     title: "Pack Frieren",
     images: [
       "assets/fri/fri1.png",
