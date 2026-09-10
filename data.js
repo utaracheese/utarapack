@@ -267,6 +267,17 @@ const javaPackList = [
 
 const bedrockPackList = [
   {
+    title: "Pack Furina",
+    images: [
+      "assets/furina/furina11.png",
+      "assets/furina/furina12.png",
+      "assets/furina/furina13.png",
+      "assets/furina/furina14.png",
+    ],
+    desc: "Pack Furina, download bằng link dưới nhe",
+    link: "https://link4m.net/uOgQZx"
+  },
+  {
     title: "Pack Frieren",
     images: [
       "assets/fri/fria.jpg",
