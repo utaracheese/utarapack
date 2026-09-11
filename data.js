@@ -13,7 +13,7 @@ Type : mọi người nhập thể loại hent hoặc ani.
 
 // NỘI DUNG LƯU Ý CHO TỪNG PHIÊN BẢN
 const notes = {
-  java: "Lưu ý : tui tìm ra cách để ae không cần giải nén pack rồi nên từ pack hutao reup trở đi ae cứ cho vô pack dùng thôi",
+  java: "Lưu ý : Nào đủ 2k follow 10pack tiếp theo của toi sẽ không phải vượt link nhe ❤",
   bedrock: "Mình không đủ khả năng để làm các gui nhe mọi người, mọi người nếu tải chơi có thể chơi chỉ có sky thui nhe ❤",
   single: "Kho Pack Lẻ (Item, Sky, Textures, ...) được tách rời để mọi người dễ phối hợp sử dụng ❤"
 };
