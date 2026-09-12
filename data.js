@@ -23,6 +23,19 @@ const notes = {
 // ========================================================
 const javaPackList = [
   {
+    title: "Pack Rikka",
+    images: [
+      "assets/rikka/rikka1.png",
+      "assets/rikka/rikka2.png",
+      "assets/rikka/rikka3.png",
+      "assets/rikka/rikka4.png",
+      "assets/rikka/rikka5.png",
+      "assets/rikka/rikka6.png",
+    ],
+    desc: "Pack rikka, download bằng link dưới nhe",
+    link: "https://link4m.org/CR50d"
+  },
+  {
     title: "Pack Furina",
     images: [
       "assets/furina/furina12.png",
