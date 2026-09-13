@@ -280,6 +280,18 @@ const javaPackList = [
 
 const bedrockPackList = [
   {
+    title: "Pack Rikka",
+    images: [
+      "assets/rikka/rikkab2.png",
+      "assets/rikka/rikkab3.png",
+      "assets/rikka/rikkab4.png",
+      "assets/rikka/rikkab5.png",
+      "assets/rikka/rikkab6.png",
+    ],
+    desc: "Pack rikka, download bằng link dưới nhe",
+    link: "https://link4m.org/znlgsw"
+  },
+  {
     title: "Pack Furina",
     images: [
       "assets/furina/furina11.png",
