@@ -3,7 +3,9 @@
 // ========================================================
 const letterData = {
   title: "Lời nhắn từ utara🧀",
-  content: `Chào mọi người! Nếu mà mọi người muốn thêm pack vô danh sách random(nếu chưa có) mọi người hãy nhắn qua gmail cho mình nha
+  content: `Chào mọi người!
+
+Nếu mà mọi người muốn thêm pack vô danh sách random(nếu chưa có) mọi người hãy nhắn qua gmail cho mình nha
 
 Khi bạn muốn góp ý tưởng hãy nhắn như sau pack(type), có thể nhập nhiều pack nha.
 Pack : mọi người nhập tên nhân vật waifu của mình.
@@ -22,6 +24,17 @@ const notes = {
 // 1. DANH SÁCH PACK JAVA CHÍNH
 // ========================================================
 const javaPackList = [
+  {
+    title: "Pack Azur lane",
+    images: [
+      "assets/azur/azur1.png",
+      "assets/azur/azur2.png",
+      "assets/azur/azur3.png",
+      "assets/azur/azur4.png",
+    ],
+    desc: "Pack azur lane, download bằng link dưới nhe",
+    link: "https://link4m.net/eBGmD"
+  },
   {
     title: "Pack Rikka",
     images: [
