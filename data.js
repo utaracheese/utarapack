@@ -25,6 +25,37 @@ const notes = {
 // ========================================================
 const javaPackList = [
   {
+    title: "Pack Arisu Tendou",
+    images: [
+      "assets/aris1.png",
+      "assets/aris2.png",
+      "assets/aris3.png",
+      "assets/aris4.png",
+      "assets/aris5.png",
+      "assets/aris6.png",
+      "assets/aris7.png",
+      "assets/aris8.png",
+      "assets/aris9.png",
+      "assets/aris10.png",
+      "assets/aris11.png",
+    ],
+    desc: "Tải pack Aris Tendou tại link bên dưới này.",
+    link: "https://link4m.net/TbMqts"
+  },
+  {
+    title: "Pack elaina",
+    images: [
+      "assets/elaina/elaina1.png",
+      "assets/elaina/elaina2.png",
+      "assets/elaina/elaina3.png",
+      "assets/elaina/elaina4.png",
+      "assets/elaina/elaina5.png",
+      "assets/elaina/elaina6.png",
+    ],
+    desc: "Pack elaina, download bằng link dưới nhe",
+    link: "https://link4m.org/gXM4VgZJ"
+  },
+  {
     title: "Pack Azur lane",
     images: [
       "assets/azur/azur1.png",
@@ -292,6 +323,17 @@ const javaPackList = [
 // ========================================================
 
 const bedrockPackList = [
+  {
+    title: "Pack Azur lane bedrock",
+    images: [
+      "assets/azur/azur1.png",
+      "assets/azur/azur2.png",
+      "assets/azur/azur3.png",
+      "assets/azur/azur4.png",
+    ],
+    desc: "Pack azur lane, download bằng link dưới nhe",
+    link: "https://link4m.org/LIetAJ"
+  },
   {
     title: "Pack Rikka",
     images: [
