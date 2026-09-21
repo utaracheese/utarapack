@@ -324,11 +324,11 @@ const javaPackList = [
 
 const bedrockPackList = [
   {
-    title: "Pack Arisu Tendou",
+    title: "Pack Arisu Bedrock",
     images: [
       "assets/aris.png",
     ],
-    desc: "Tải pack Aris Tendou tại link bên dưới này.",
+    desc: "Tải pack Aris tại link bên dưới này.",
     link: "https://link4m.net/orASf3IO"
   },
   {
