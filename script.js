@@ -47,7 +47,6 @@ function renderPacks(list) {
       <button class="carousel-nav carousel-next">&#10095;</button>
     ` : '';
 
-    // Khối hiển thị nguồn ảnh nếu pack có khai báo `source`
     const sourceHtml = pack.source ? `
       <div class="card-source" title="${pack.source}">${pack.source}</div>
     ` : '';
@@ -116,20 +115,16 @@ function renderPacks(list) {
 // CẬP NHẬT GIAO DIỆN
 function updateView() {
   if (isCosplayPackMode) {
-    // Ẩn thanh chọn Java / Bedrock
     versionToggleContainer.classList.add('hidden');
     cosplayPackBtn.classList.add('active');
     
-    // Hiển thị danh sách pack Cosplay (Gọi trực tiếp cosplayPackList)
     const list = (typeof cosplayPackList !== 'undefined') ? cosplayPackList : [];
     renderPacks(list);
     footerNote.textContent = notes.cosplay || "Các pack cosplay mình sẽ không đăng lên tiktok để thông báo được nên mọi người có thể vào đây để kiểm tra theo thời gian nha.";
   } else {
-    // Hiện lại thanh chọn Java / Bedrock
     versionToggleContainer.classList.remove('hidden');
     cosplayPackBtn.classList.remove('active');
 
-    // Hiển thị danh sách Java hoặc Bedrock
     if (currentVersion === 'java') {
       renderPacks(javaPackList);
       footerNote.textContent = notes.java;
@@ -217,10 +212,8 @@ function openModal(pack, initialImgIdx = 0) {
   }
 
   updateModalSlide(modalCurrentIdx);
-
   modalTitle.textContent = pack.title;
 
-  // Hiển thị nguồn ảnh trong modal nếu có
   if (pack.source) {
     modalSource.textContent = pack.source;
     modalSource.style.display = 'block';
@@ -255,7 +248,7 @@ btnCopyLink.addEventListener('click', () => {
 });
 
 // ========================================================
-// LOGIC HỘP THƯ & TỰ ĐỘNG RESET CHẤM ĐỎ
+// LOGIC HỘP THƯ
 // ========================================================
 function hashString(str) {
   let hash = 0;
@@ -298,7 +291,70 @@ btnReadMail.addEventListener('click', closeMailModal);
 mailModal.addEventListener('click', (e) => {
   if (e.target === mailModal) closeMailModal();
 });
+// ========================================================
+// TIỀN TẢI (PRELOAD) ẢNH VÀO RAM NGAY TỨC THÌ
+// ========================================================
+const preloadQR1 = new Image();
+preloadQR1.src = "assets/QR.png";
 
+const preloadQR2 = new Image();
+preloadQR2.src = "assets/qr2.jpg";
+
+// ========================================================
+// LOGIC MODAL QUẢNG CÁO DONATE & PHÓNG TO QR
+// ========================================================
+const promoModal = document.getElementById('promoModal');
+const promoToast = document.getElementById('promoToast');
+const btnZoomQR = document.getElementById('btnZoomQR');
+const qrZoomModal = document.getElementById('qrZoomModal');
+const btnCloseZoom = document.getElementById('btnCloseZoom');
+const donateBtn = document.getElementById('donateBtn');
+
+// Mở modal quảng cáo
+function openPromoModal() {
+  promoModal.classList.add('active');
+  // Reset lại animation thông báo mờ dần trong 1s
+  promoToast.style.animation = 'none';
+  void promoToast.offsetWidth;
+  promoToast.style.animation = 'toastFade 2.6s forwards';
+}
+
+function closePromoModal() {
+  promoModal.classList.remove('active');
+}
+
+// Bấm nút Donate trên Top-Bar để mở lại quảng cáo
+donateBtn.addEventListener('click', () => {
+  openPromoModal();
+});
+
+// Click bất kỳ đâu trên màn hình (trừ nút kính lúp) để tắt modal quảng cáo
+promoModal.addEventListener('click', (e) => {
+  if (e.target === btnZoomQR || btnZoomQR.contains(e.target)) {
+    return; // Không tắt khi bấm vào kính lúp
+  }
+  closePromoModal();
+});
+
+// Khi bấm vào nút kính lúp -> Mở modal phóng to QR
+btnZoomQR.addEventListener('click', (e) => {
+  e.stopPropagation();
+  qrZoomModal.classList.add('active');
+});
+
+// Đóng modal QR khi ấn nút X hoặc ấn ra ngoài
+function closeZoomModal() {
+  qrZoomModal.classList.remove('active');
+}
+
+btnCloseZoom.addEventListener('click', (e) => {
+  e.stopPropagation();
+  closeZoomModal();
+});
+
+qrZoomModal.addEventListener('click', () => {
+  closeZoomModal();
+});
 /* HIỆU ỨNG TUYẾT RƠI */
 const canvas = document.getElementById('snow-canvas');
 const ctx = canvas.getContext('2d');
