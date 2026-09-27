@@ -7,6 +7,34 @@ const defaultPlaceholder = "https://images.unsplash.com/photo-1618005182384-a83a
 // Trạng thái hiện tại: version ('java' | 'bedrock') và chế độ Cosplay (true / false)
 let currentVersion = 'java';
 let isCosplayPackMode = false;
+let searchQuery = "";
+
+// ========================================================
+// BỘ LỌC TÌM KIẾM THEO TÊN (TITLE) HOẶC TỪ KHÓA (KEY / KEYS)
+// ========================================================
+function filterPacks(list) {
+  if (!searchQuery) return list;
+  const q = searchQuery.toLowerCase().trim();
+
+  return list.filter(pack => {
+    // 1. Kiểm tra tiêu đề pack
+    const titleMatch = pack.title && pack.title.toLowerCase().includes(q);
+
+    // 2. Kiểm tra từ khóa ẩn (key / keys)
+    let keyMatch = false;
+    const packKey = pack.key || pack.keys;
+
+    if (packKey) {
+      if (Array.isArray(packKey)) {
+        keyMatch = packKey.some(k => String(k).toLowerCase().includes(q));
+      } else if (typeof packKey === 'string') {
+        keyMatch = packKey.toLowerCase().includes(q);
+      }
+    }
+
+    return titleMatch || keyMatch;
+  });
+}
 
 // HÀM HIỂN THỊ DANH SÁCH PACK
 function renderPacks(list) {
@@ -16,7 +44,7 @@ function renderPacks(list) {
     packGrid.innerHTML = `
       <div class="empty-state">
         <div style="font-size: 2.2rem; margin-bottom: 8px;">🎭</div>
-        <div>Chưa có pack nào ở mục này nha!</div>
+        <div>${searchQuery ? `Không tìm thấy pack nào với từ khóa "<b>${searchQuery}</b>"` : 'Chưa có pack nào ở mục này nha!'}</div>
       </div>
     `;
     return;
@@ -119,17 +147,17 @@ function updateView() {
     cosplayPackBtn.classList.add('active');
     
     const list = (typeof cosplayPackList !== 'undefined') ? cosplayPackList : [];
-    renderPacks(list);
+    renderPacks(filterPacks(list));
     footerNote.textContent = notes.cosplay || "Các pack cosplay mình sẽ không đăng lên tiktok để thông báo được nên mọi người có thể vào đây để kiểm tra theo thời gian nha.";
   } else {
     versionToggleContainer.classList.remove('hidden');
     cosplayPackBtn.classList.remove('active');
 
     if (currentVersion === 'java') {
-      renderPacks(javaPackList);
+      renderPacks(filterPacks(javaPackList));
       footerNote.textContent = notes.java;
     } else {
-      renderPacks(bedrockPackList);
+      renderPacks(filterPacks(bedrockPackList));
       footerNote.textContent = notes.bedrock;
     }
   }
@@ -153,6 +181,81 @@ function toggleCosplayPackMode() {
 // Khởi chạy mặc định
 updateView();
 
+// ========================================================
+// LOGIC THANH TÌM KIẾM, NÚT NHANH 210 & BONG BÓNG HƯỚNG DẪN
+// ========================================================
+const searchToggleBtn = document.getElementById('searchToggleBtn');
+const searchDropdown = document.getElementById('searchDropdown');
+const searchInput = document.getElementById('searchInput');
+const searchClearBtn = document.getElementById('searchClearBtn');
+const tagBtns = document.querySelectorAll('.tag-btn');
+const searchWrapper = document.getElementById('searchWrapper');
+const quickTag210 = document.getElementById('quickTag210');
+const searchBubble = document.getElementById('searchBubble');
+
+// Tự động xoá bong bóng chỉ dẫn sau đúng 2.5 giây
+if (searchBubble) {
+  setTimeout(() => {
+    searchBubble.remove();
+  }, 2500);
+}
+
+// Bật/tắt thanh tìm kiếm khi bấm kính lúp
+searchToggleBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  const isOpen = searchDropdown.classList.toggle('show');
+  searchToggleBtn.classList.toggle('active', isOpen);
+  if (isOpen) {
+    searchInput.focus();
+  }
+});
+
+// Nhập ký tự để tìm kiếm tức thì
+searchInput.addEventListener('input', (e) => {
+  searchQuery = e.target.value;
+  searchClearBtn.style.display = searchQuery ? 'flex' : 'none';
+  updateView();
+});
+
+// Nút xóa nhanh từ khóa (✕)
+searchClearBtn.addEventListener('click', () => {
+  searchInput.value = '';
+  searchQuery = '';
+  searchClearBtn.style.display = 'none';
+  searchInput.focus();
+  updateView();
+});
+
+// Bấm nút gợi ý nhanh 210 bên cạnh kính lúp
+if (quickTag210) {
+  quickTag210.addEventListener('click', () => {
+    searchInput.value = '210';
+    searchQuery = '210';
+    searchClearBtn.style.display = 'flex';
+    searchDropdown.classList.add('show');
+    searchToggleBtn.classList.add('active');
+    updateView();
+  });
+}
+
+// Nhấn vào các tag gợi ý trong menu (210, genshin, honkai,...)
+tagBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const tag = btn.getAttribute('data-tag');
+    searchInput.value = tag;
+    searchQuery = tag;
+    searchClearBtn.style.display = 'flex';
+    updateView();
+  });
+});
+
+// Tắt menu tìm kiếm khi click ra ngoài
+document.addEventListener('click', (e) => {
+  if (!searchWrapper.contains(e.target)) {
+    searchDropdown.classList.remove('show');
+    searchToggleBtn.classList.remove('active');
+  }
+});
 // ========================================================
 // LOGIC MODAL CHI TIẾT PACK
 // ========================================================
@@ -291,6 +394,7 @@ btnReadMail.addEventListener('click', closeMailModal);
 mailModal.addEventListener('click', (e) => {
   if (e.target === mailModal) closeMailModal();
 });
+
 // ========================================================
 // TIỀN TẢI (PRELOAD) ẢNH VÀO RAM NGAY TỨC THÌ
 // ========================================================
@@ -310,10 +414,8 @@ const qrZoomModal = document.getElementById('qrZoomModal');
 const btnCloseZoom = document.getElementById('btnCloseZoom');
 const donateBtn = document.getElementById('donateBtn');
 
-// Mở modal quảng cáo
 function openPromoModal() {
   promoModal.classList.add('active');
-  // Reset lại animation thông báo mờ dần trong 1s
   promoToast.style.animation = 'none';
   void promoToast.offsetWidth;
   promoToast.style.animation = 'toastFade 2.6s forwards';
@@ -323,26 +425,22 @@ function closePromoModal() {
   promoModal.classList.remove('active');
 }
 
-// Bấm nút Donate trên Top-Bar để mở lại quảng cáo
 donateBtn.addEventListener('click', () => {
   openPromoModal();
 });
 
-// Click bất kỳ đâu trên màn hình (trừ nút kính lúp) để tắt modal quảng cáo
 promoModal.addEventListener('click', (e) => {
   if (e.target === btnZoomQR || btnZoomQR.contains(e.target)) {
-    return; // Không tắt khi bấm vào kính lúp
+    return;
   }
   closePromoModal();
 });
 
-// Khi bấm vào nút kính lúp -> Mở modal phóng to QR
 btnZoomQR.addEventListener('click', (e) => {
   e.stopPropagation();
   qrZoomModal.classList.add('active');
 });
 
-// Đóng modal QR khi ấn nút X hoặc ấn ra ngoài
 function closeZoomModal() {
   qrZoomModal.classList.remove('active');
 }
@@ -355,6 +453,7 @@ btnCloseZoom.addEventListener('click', (e) => {
 qrZoomModal.addEventListener('click', () => {
   closeZoomModal();
 });
+
 /* HIỆU ỨNG TUYẾT RƠI */
 const canvas = document.getElementById('snow-canvas');
 const ctx = canvas.getContext('2d');

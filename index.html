@@ -64,6 +64,13 @@
       flex-shrink: 0;
     }
 
+    .top-bar-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+    }
+
     .contact-email {
       font-size: 0.85rem;
       color: #1e293b;
@@ -79,6 +86,201 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
+    }
+
+    /* ========================================================
+       THANH TÌM KIẾM & GỢI Ý
+    ======================================================== */
+    /* ========================================================
+       THANH TÌM KIẾM, NÚT GỢI Ý 210 & BONG BÓNG HƯỚNG DẪN
+    ======================================================== */
+    .search-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .search-toggle-btn {
+      width: 38px;
+      height: 38px;
+      font-size: 1.05rem;
+    }
+
+    /* Nút gợi ý nhanh 210 sát bên kính lúp */
+    .quick-tag-pill {
+      height: 38px;
+      padding: 0 14px;
+      border-radius: 50px;
+      border: 1px solid rgba(255, 255, 255, 0.75);
+      background: rgba(255, 255, 255, 0.42);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #0f172a;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+      transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+      user-select: none;
+    }
+
+    .quick-tag-pill:hover {
+      background: #0f172a;
+      color: #ffffff;
+      border-color: #0f172a;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Bong bóng chỉ dẫn có mũi tên chỉ vào kính lúp (hiển thị 2.5s) */
+    .search-bubble {
+      position: absolute;
+      left: calc(100% + 12px);
+      white-space: nowrap;
+      background: linear-gradient(135deg, #0084ff, #00a6ff);
+      color: white;
+      padding: 7px 14px;
+      border-radius: 18px 18px 18px 4px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(0, 132, 255, 0.35);
+      pointer-events: none;
+      z-index: 25;
+      animation: searchBubbleFade 2.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+
+    /* Mũi tên chỉ ngược lại kính lúp */
+    .search-bubble::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: -6px;
+      transform: translateY(-50%);
+      border-width: 6px 7px 6px 0;
+      border-style: solid;
+      border-color: transparent #0084ff transparent transparent;
+    }
+
+    @keyframes searchBubbleFade {
+      0% { opacity: 0; transform: translateX(-6px); }
+      15% { opacity: 1; transform: translateX(0); }
+      75% { opacity: 1; transform: translateX(0); }
+      100% { opacity: 0; transform: translateX(-8px); visibility: hidden; }
+    }
+
+    .search-toggle-btn {
+      width: 38px;
+      height: 38px;
+      font-size: 1.05rem;
+    }
+
+    .search-box-dropdown {
+      position: absolute;
+      top: calc(100% + 10px);
+      left: 0;
+      width: 320px;
+      max-width: 88vw;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      border-radius: 20px;
+      padding: 12px;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.15);
+      z-index: 40;
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+      animation: dropFade 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .search-box-dropdown.show {
+      display: flex;
+    }
+
+    @keyframes dropFade {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .search-input-group {
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 12px;
+      padding: 6px 12px;
+      gap: 8px;
+    }
+
+    .search-input-group input {
+      border: none;
+      outline: none;
+      background: transparent;
+      width: 100%;
+      font-size: 0.88rem;
+      color: #0f172a;
+      font-weight: 500;
+    }
+
+    .search-input-group input::placeholder {
+      color: #94a3b8;
+    }
+
+    .search-clear-btn {
+      border: none;
+      background: rgba(0, 0, 0, 0.08);
+      color: #475569;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      font-size: 0.72rem;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .search-clear-btn:hover {
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .search-tags {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 0.8rem;
+    }
+
+    .search-tags-label {
+      color: #64748b;
+      font-weight: 600;
+      font-size: 0.78rem;
+    }
+
+    .tag-btn {
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      background: rgba(255, 255, 255, 0.75);
+      color: #334155;
+      padding: 3px 10px;
+      border-radius: 30px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .tag-btn:hover {
+      background: #0f172a;
+      color: #fff;
+      border-color: #0f172a;
+      transform: translateY(-1px);
     }
 
     .version-toggle-container {
@@ -707,9 +909,42 @@
 
   <div class="container">
     <div class="top-bar">
-      <div class="contact-email">
-        <span>✉️</span>
-        <span>thanhbinhanhduong2@gmail.com</span>
+      
+      <!-- CỤM EMAIL VÀ TÌM KIẾM -->
+      <!-- TÌM ĐOẠN .top-bar-left CŨ VÀ THAY BẰNG ĐOẠN NÀY -->
+      <div class="top-bar-left">
+        <div class="contact-email">
+          <span>✉️</span>
+          <span>thanhbinhanhduong2@gmail.com</span>
+        </div>
+      
+        <div class="search-wrapper" id="searchWrapper">
+          <!-- Nút kính lúp -->
+          <button class="icon-btn search-toggle-btn" id="searchToggleBtn" title="Tìm kiếm pack">
+            <span>🔍</span>
+          </button>
+        
+          <!-- Nút gợi ý nhanh 210 ngay bên cạnh kính lúp -->
+          <button type="button" class="quick-tag-pill" id="quickTag210" title="Tìm nhanh pack 210">210</button>
+        
+          <!-- Bong bóng chỉ dẫn có mũi tên (tự tắt sau 2.5s) -->
+          <div class="search-bubble" id="searchBubble">Tìm kiếm pack của bạn</div>
+
+          <!-- Dropdown nhập tìm kiếm -->
+          <div class="search-box-dropdown" id="searchDropdown">
+            <div class="search-input-group">
+              <span>🔍</span>
+              <input type="text" id="searchInput" placeholder="Nhập tên hoặc từ khóa..." autocomplete="off">
+              <button class="search-clear-btn" id="searchClearBtn" title="Xóa">✕</button>
+            </div>
+            <div class="search-tags">
+              <span class="search-tags-label">Gợi ý:</span>
+              <button type="button" class="tag-btn" data-tag="210">210</button>
+              <button type="button" class="tag-btn" data-tag="genshin">genshin</button>
+              <button type="button" class="tag-btn" data-tag="honkai">honkai</button>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="version-toggle-container" id="versionToggleContainer">
@@ -789,7 +1024,7 @@
     </div>
   </div>
 
-  <!-- MODAL QUẢNG CÁO MỞ ĐẦU: ĐẶT SẴN CLASS "active" ĐỂ HIỆN NGAY KHI MỞ TRANG -->
+  <!-- MODAL QUẢNG CÁO MỞ ĐẦU -->
   <div class="modal-overlay active" id="promoModal">
     <div class="promo-toast" id="promoToast">Nhấn nơi bất kỳ để tắt</div>
     <div class="promo-wrapper" id="promoWrapper">

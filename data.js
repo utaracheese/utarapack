@@ -17,7 +17,7 @@ Type : mọi người nhập thể loại hent hoặc ani.
 const notes = {
   java: "Lưu ý : Nào đủ 2k follow 10pack tiếp theo của toi sẽ không phải vượt link nhe ❤",
   bedrock: "Mình không đủ khả năng để làm các gui nhe mọi người, mọi người nếu tải chơi có thể chơi chỉ có sky thui nhe ❤",
-  single: "Kho Pack Lẻ (Item, Sky, Textures, ...) được tách rời để mọi người dễ phối hợp sử dụng ❤"
+  cosplay: "Các pack cosplay mình sẽ không đăng lên tiktok để thông báo được nên mọi người có thể vào đây để kiểm tra theo thời gian nha ❤"
 };
 
 // ========================================================
@@ -25,7 +25,19 @@ const notes = {
 // ========================================================
 const javaPackList = [
   {
-    title: "Pack Arisu Tendou",
+    title: "Pack Siesta",
+    key: "siesta anime waifu",
+    images: [
+      "assets/sis1.png",
+      "assets/sis2.png",
+      "assets/sis3.png"
+    ],
+    desc: "Download pack tại link dưới đây",
+    link: "https://link4m.org/A6KZtDEn"
+  },
+  {
+    title: "Arisu Tendou",
+    key: "blue archive ba arisu tendou",
     images: [
       "assets/aris1.png",
       "assets/aris2.png",
@@ -43,7 +55,8 @@ const javaPackList = [
     link: "https://link4m.net/TbMqts"
   },
   {
-    title: "Pack elaina",
+    title: "Elaina",
+    key: "elaina witch anime",
     images: [
       "assets/elaina/elaina1.png",
       "assets/elaina/elaina2.png",
@@ -56,7 +69,8 @@ const javaPackList = [
     link: "https://link4m.org/gXM4VgZJ"
   },
   {
-    title: "Pack Azur lane",
+    title: "Azur lane 210",
+    key: "azur lane 210 ship waifu",
     images: [
       "assets/azur/azur1.png",
       "assets/azur/azur2.png",
@@ -67,7 +81,8 @@ const javaPackList = [
     link: "https://link4m.net/eBGmD"
   },
   {
-    title: "Pack Rikka",
+    title: "Rikka Takanashi",
+    key: "rikka chuunibyou anime",
     images: [
       "assets/rikka/rikka1.png",
       "assets/rikka/rikka2.png",
@@ -80,7 +95,8 @@ const javaPackList = [
     link: "https://link4m.org/CR50d"
   },
   {
-    title: "Pack Furina",
+    title: "Furina de Fontaine",
+    key: "genshin impact furina fontaine waifu",
     images: [
       "assets/furina/furina12.png",
       "assets/furina/furina13.png",
@@ -101,7 +117,8 @@ const javaPackList = [
     link: "https://link4m.net/8nZhyB5D"
   },
   {
-    title: "Pack Frieren",
+    title: "Frieren",
+    key: "frieren sousou anime",
     images: [
       "assets/fri/fri1.png",
       "assets/fri/fri2.png",
@@ -122,7 +139,8 @@ const javaPackList = [
     link: "https://link4m.net/7xWsCt"
   },
   {
-    title: "Pack Hutao Re",
+    title: "Hutao Remake",
+    key: "genshin impact hutao remake waifu",
     images: [
       "assets/hutao1.png",
       "assets/hutao2.png",
@@ -137,7 +155,8 @@ const javaPackList = [
     link: "https://link4m.org/ytOENB34"
   },
   {
-    title: "Pack genshin",
+    title: "Genshin Impact 210",
+    key: "genshin impact 210 waifu 18",
     images: [
       "assets/gen2101.png",
     ],
@@ -145,7 +164,8 @@ const javaPackList = [
     link: "https://link4m.org/8mzEed"
   },
   {
-    title: "Pack Blue Archiver",
+    title: "Blue Archive 210",
+    key: "blue archive 210 ba waifu",
     images: [
       "assets/blu1.png",
     ],
@@ -153,16 +173,17 @@ const javaPackList = [
     link: "https://link4m.org/DocKrNd"
   },
   {
-    title: "Pack Honkai Star Rail",
+    title: "Honkai Star Rail 210",
+    key: "honkai star rail 210 hsr waifu",
     images: [
       "assets/hon1.png",
     ],
     desc: "Pack Honkai Star Rail, download bằng link dưới nhe",
     link: "https://link4m.net/4VhcfzFr"
   },
-  
   {
-    title: "Pack Waguri",
+    title: "Kaoruko Waguri",
+    key: "waguri kaoruko anime",
     images: [
       "assets/wag1.png",
       "assets/wag2.png",
@@ -179,7 +200,8 @@ const javaPackList = [
     link: "https://link4m.org/0p421"
   },
   {
-    title: "Pack Mahiru",
+    title: "Mahiru Shiina",
+    key: "mahiru shiina otonari tenshi anime waifu",
     images: [
       "assets/mah1.png",
       "assets/mah2.png",
@@ -199,7 +221,8 @@ const javaPackList = [
     link: "https://link4m.org/Pv3qtb"
   },
   {
-    title: "Pack alya",
+    title: "Alya - Alisa Mikhailovna Kujou",
+    key: "alya alisa kujou roshidere anime",
     images: [
       "assets/alya1.png",
       "assets/alya2.png",
@@ -213,7 +236,8 @@ const javaPackList = [
     link: "https://link4m.org/aaNlL"
   },
   {
-    title: "Pack Roxy Migurdia",
+    title: "Roxy Migurdia",
+    key: "roxy mushoku tensei waifu",
     images: [
       "assets/roxy9.png",
       "assets/roxy1.png",
@@ -229,17 +253,8 @@ const javaPackList = [
     link: "https://link4m.org/of6KTBPw"
   },
   {
-    title: "Pack Siesta",
-    images: [
-      "assets/sis1.png",
-      "assets/sis2.png",
-      "assets/sis3.png"
-    ],
-    desc: "Download pack tại link dưới đây",
-    link: "https://link4m.org/A6KZtDEn"
-  },
-  {
-    title: "Pack Nakano Miku",
+    title: "Nakano Miku",
+    key: "miku gotoubun anime waifu",
     images: [
       "assets/miku1.png",
       "assets/miku2.png",
@@ -249,25 +264,8 @@ const javaPackList = [
     link: "https://link4m.net/mda4EQ"
   },
   {
-    title: "Pack Arisu Tendou",
-    images: [
-      "assets/aris1.png",
-      "assets/aris2.png",
-      "assets/aris3.png",
-      "assets/aris4.png",
-      "assets/aris5.png",
-      "assets/aris6.png",
-      "assets/aris7.png",
-      "assets/aris8.png",
-      "assets/aris9.png",
-      "assets/aris10.png",
-      "assets/aris11.png",
-    ],
-    desc: "Tải pack Aris Tendou tại link bên dưới này.",
-    link: "https://link4m.net/TbMqts"
-  },
-  {
-    title: "Pack Hutao",
+    title: "Hutao",
+    key: "genshin impact hutao",
     images: [
       "assets/hutao1.png",
       "assets/hutao2.png",
@@ -282,7 +280,8 @@ const javaPackList = [
     link: "https://link4m.org/LSMiM"
   },
   {
-    title: "Pack Gaur gura",
+    title: "Gawr Gura",
+    key: "gawr gura hololive vtuber shark",
     images: [
       "assets/gg0.png",
       "assets/gg1.png",
@@ -302,7 +301,8 @@ const javaPackList = [
     link: "https://link4m.org/SHOJKW"
   },
   {
-    title: "Pack Hoshino",
+    title: "Hoshino",
+    key: "hoshino blue archive ba",
     images: [
       "assets/hoshino2.png",
       "assets/hoshino3.png",
@@ -321,10 +321,10 @@ const javaPackList = [
 // ========================================================
 // 2. DANH SÁCH PACK BEDROCK CHÍNH
 // ========================================================
-
 const bedrockPackList = [
   {
     title: "Pack Arisu Bedrock",
+    key: "blue archive arisu ba bedrock",
     images: [
       "assets/aris.png",
     ],
@@ -332,7 +332,8 @@ const bedrockPackList = [
     link: "https://link4m.net/orASf3IO"
   },
   {
-    title: "Pack Azur lane bedrock",
+    title: "Pack Azur lane bedrock 210",
+    key: "azur lane 210 bedrock waifu",
     images: [
       "assets/azur/azur1.png",
       "assets/azur/azur2.png",
@@ -344,6 +345,7 @@ const bedrockPackList = [
   },
   {
     title: "Pack Rikka",
+    key: "rikka takanashi bedrock anime",
     images: [
       "assets/rikka/rikkab2.png",
       "assets/rikka/rikkab3.png",
@@ -356,6 +358,7 @@ const bedrockPackList = [
   },
   {
     title: "Pack Furina",
+    key: "genshin impact furina fontaine bedrock",
     images: [
       "assets/furina/furina11.png",
       "assets/furina/furina12.png",
@@ -367,6 +370,7 @@ const bedrockPackList = [
   },
   {
     title: "Pack Frieren",
+    key: "frieren sousou bedrock anime",
     images: [
       "assets/fri/fria.jpg",
       "assets/fri/frib.jpg",
@@ -379,6 +383,7 @@ const bedrockPackList = [
   },
   {
     title: "Pack Hutao",
+    key: "genshin impact hutao bedrock",
     images: [
       "assets/hutaoBR/hutao1.jpg",
       "assets/hutaoBR/hutao2.jpg",
@@ -394,6 +399,7 @@ const bedrockPackList = [
   },
   {
     title: "Pack Sky Gawr Gura",
+    key: "gawr gura hololive vtuber sky bedrock",
     images: [
       "assets/gg10.png",
       "assets/gg11.png",
@@ -405,6 +411,7 @@ const bedrockPackList = [
   },
   {
     title: "Pack Arya",
+    key: "alya alya roshidere bedrock",
     images: [
       "assets/arbr.jpg",
       "assets/arbr1.jpg",
@@ -417,6 +424,7 @@ const bedrockPackList = [
   },
   {
     title: "Pack blue",
+    key: "blue archive ba 210 sky bedrock",
     images: [
       "assets/blu1.png",
     ],
@@ -425,6 +433,7 @@ const bedrockPackList = [
   },
   {
     title: "Pack honkai",
+    key: "honkai star rail hsr bedrock sky",
     images: [
       "assets/honk1.jpg",
       "assets/honk2.jpg",
@@ -436,6 +445,7 @@ const bedrockPackList = [
   },
   {
     title: "combo Sky pack genshin",
+    key: "genshin impact 210 sky combo bedrock",
     images: [
       "assets/gen2101.png",
       "assets/gen2102.png",
@@ -447,8 +457,6 @@ const bedrockPackList = [
 ];
 
 // ========================================================
-// 3. KHO PACK LẺ (SINGLE PACKS)
-// Thêm các item/pack lẻ vào đây
+// 3. KHO PACK COSPLAY
 // ========================================================
-const cosplayPackList = [
-];
+const cosplayPackList = [];
