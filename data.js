@@ -24,6 +24,32 @@ const notes = {
 // 1. DANH SÁCH PACK JAVA CHÍNH
 // ========================================================
 const javaPackList = [
+    {
+    title: "zenless Zone Zero 210",
+    key: "zenless Zone Zero 210",
+    images: [
+      "assets/zzz/zzz.png",
+    ],
+    desc: "Download pack tại link dưới đây",
+    link: "https://link4m.net/cQgqJ"
+  },
+  {
+    title: "Yuki Suou",
+    key: "Yuki Suou 210",
+    images: [
+      "assets/yuki/yuki1.png",
+      "assets/yuki/yuki2.png",
+      "assets/yuki/yuki3.png",
+      "assets/yuki/yuki4.png",
+      "assets/yuki/yuki5.png",
+      "assets/yuki/yuki6.png",
+      "assets/yuki/yuki7.png",
+      "assets/yuki/yuki8.png",
+      "assets/yuki/yuki9.png"
+    ],
+    desc: "Download pack tại link dưới đây",
+    link: "https://link4m.net/O2mTrH"
+  },
   {
     title: "Pack Siesta",
     key: "siesta anime waifu",
