@@ -349,6 +349,15 @@ const javaPackList = [
 // ========================================================
 const bedrockPackList = [
   {
+    title: "Pack Hoshino Bedrock",
+    key: "blue archive Hoshino ba bedrock",
+    images: [
+      "assets/hoshino3.png",
+    ],
+    desc: "Tải pack Hoshino tại link bên dưới này.",
+    link: "https://link4m.net/M8hr4Y"
+  },
+  {
     title: "Pack Arisu Bedrock",
     key: "blue archive arisu ba bedrock",
     images: [
