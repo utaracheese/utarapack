@@ -349,6 +349,15 @@ const javaPackList = [
 // ========================================================
 const bedrockPackList = [
   {
+    title: "Pack yuki suou Bedrock",
+    key: "Yuki Suou 210",
+    images: [
+      "assets/yuki/yuki9.png",
+    ],
+    desc: "Tải pack yuki suou tại link bên dưới này.",
+    link: "https://link4m.net/h27dL4cO"
+  },
+  {
     title: "Pack Hoshino Bedrock",
     key: "blue archive Hoshino ba bedrock",
     images: [
