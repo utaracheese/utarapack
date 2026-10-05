@@ -28,7 +28,7 @@ const javaPackList = [
     title: "zenless Zone Zero 210",
     key: "zenless Zone Zero 210",
     images: [
-      "assets/zzz/zzz.png",
+      "assets/zzz/",
     ],
     desc: "Download pack tại link dưới đây",
     link: "https://link4m.net/cQgqJ",
