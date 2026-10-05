@@ -24,14 +24,15 @@ const notes = {
 // 1. DANH SÁCH PACK JAVA CHÍNH
 // ========================================================
 const javaPackList = [
-    {
+  {
     title: "zenless Zone Zero 210",
     key: "zenless Zone Zero 210",
     images: [
       "assets/zzz/zzz.png",
     ],
     desc: "Download pack tại link dưới đây",
-    link: "https://link4m.net/cQgqJ"
+    link: "https://link4m.net/cQgqJ",
+    olink: ""
   },
   {
     title: "Yuki Suou",
@@ -48,7 +49,8 @@ const javaPackList = [
       "assets/yuki/yuki9.png"
     ],
     desc: "Download pack tại link dưới đây",
-    link: "https://link4m.net/O2mTrH"
+    link: "https://link4m.net/O2mTrH",
+    olink: ""
   },
   {
     title: "Pack Siesta",
@@ -59,7 +61,8 @@ const javaPackList = [
       "assets/sis3.png"
     ],
     desc: "Download pack tại link dưới đây",
-    link: "https://link4m.org/A6KZtDEn"
+    link: "https://link4m.org/A6KZtDEn",
+    olink: ""
   },
   {
     title: "Arisu Tendou",
@@ -78,7 +81,8 @@ const javaPackList = [
       "assets/aris11.png",
     ],
     desc: "Tải pack Aris Tendou tại link bên dưới này.",
-    link: "https://link4m.net/TbMqts"
+    link: "https://link4m.net/TbMqts",
+    olink: "https://shrinkme.click/tmO3kJPz"
   },
   {
     title: "Elaina",
@@ -92,7 +96,8 @@ const javaPackList = [
       "assets/elaina/elaina6.png",
     ],
     desc: "Pack elaina, download bằng link dưới nhe",
-    link: "https://link4m.org/gXM4VgZJ"
+    link: "https://link4m.org/gXM4VgZJ",
+    olink: ""
   },
   {
     title: "Azur lane 210",
@@ -104,7 +109,8 @@ const javaPackList = [
       "assets/azur/azur4.png",
     ],
     desc: "Pack azur lane, download bằng link dưới nhe",
-    link: "https://link4m.net/eBGmD"
+    link: "https://link4m.net/eBGmD",
+    olink: ""
   },
   {
     title: "Rikka Takanashi",
@@ -118,7 +124,8 @@ const javaPackList = [
       "assets/rikka/rikka6.png",
     ],
     desc: "Pack rikka, download bằng link dưới nhe",
-    link: "https://link4m.org/CR50d"
+    link: "https://link4m.org/CR50d",
+    olink: ""
   },
   {
     title: "Furina de Fontaine",
@@ -140,7 +147,8 @@ const javaPackList = [
       "assets/furina/furina11.png",
     ],
     desc: "Pack Furina, download bằng link dưới nhe",
-    link: "https://link4m.net/8nZhyB5D"
+    link: "https://link4m.net/8nZhyB5D",
+    olink: ""
   },
   {
     title: "Frieren",
@@ -162,7 +170,8 @@ const javaPackList = [
       "assets/fri/fri15.png",
     ],
     desc: "Pack Frieren, download bằng link dưới nhe",
-    link: "https://link4m.net/7xWsCt"
+    link: "https://link4m.net/7xWsCt",
+    olink: ""
   },
   {
     title: "Hutao Remake",
@@ -178,7 +187,8 @@ const javaPackList = [
       "assets/hutao8.png",
     ],
     desc: "Tải pack Hutao ở link dưới nha (đây là bản làm lại để tránh lag, dù chỉ là 1 tí :Đ)",
-    link: "https://link4m.org/ytOENB34"
+    link: "https://link4m.org/ytOENB34",
+    olink: ""
   },
   {
     title: "Genshin Impact 210",
@@ -187,7 +197,8 @@ const javaPackList = [
       "assets/gen2101.png",
     ],
     desc: "Pack genshin download bằng link dưới đây.",
-    link: "https://link4m.org/8mzEed"
+    link: "https://link4m.org/8mzEed",
+    olink: "https://shrinkme.click/KBAbdO"
   },
   {
     title: "Blue Archive 210",
@@ -196,7 +207,8 @@ const javaPackList = [
       "assets/blu1.png",
     ],
     desc: "Pack hentai Blue Archiver, download bằng link dưới nhe",
-    link: "https://link4m.org/DocKrNd"
+    link: "https://link4m.org/DocKrNd",
+    olink: ""
   },
   {
     title: "Honkai Star Rail 210",
@@ -205,7 +217,8 @@ const javaPackList = [
       "assets/hon1.png",
     ],
     desc: "Pack Honkai Star Rail, download bằng link dưới nhe",
-    link: "https://link4m.net/4VhcfzFr"
+    link: "https://link4m.net/4VhcfzFr",
+    olink: ""
   },
   {
     title: "Kaoruko Waguri",
@@ -223,7 +236,8 @@ const javaPackList = [
       "assets/wag11.png",
     ],
     desc: "Pack Waguri, download bằng link dưới nhe",
-    link: "https://link4m.org/0p421"
+    link: "https://link4m.org/0p421",
+    olink: ""
   },
   {
     title: "Mahiru Shiina",
@@ -244,7 +258,8 @@ const javaPackList = [
       "assets/mah14.png",
     ],
     desc: "Pack Mahiru, download bằng link dưới nhe",
-    link: "https://link4m.org/Pv3qtb"
+    link: "https://link4m.org/Pv3qtb",
+    olink: ""
   },
   {
     title: "Alya - Alisa Mikhailovna Kujou",
@@ -259,7 +274,8 @@ const javaPackList = [
       "assets/alya7.png",
     ],
     desc: "Pack đầu tay của tui nhe 💖",
-    link: "https://link4m.org/aaNlL"
+    link: "https://link4m.org/aaNlL",
+    olink: "https://shrinkme.click/DwKGXu"
   },
   {
     title: "Roxy Migurdia",
@@ -276,7 +292,8 @@ const javaPackList = [
       "assets/roxy8.png",
     ],
     desc: "Download pack tại link dưới đây <3",
-    link: "https://link4m.org/of6KTBPw"
+    link: "https://link4m.org/of6KTBPw",
+    olink: ""
   },
   {
     title: "Nakano Miku",
@@ -287,7 +304,8 @@ const javaPackList = [
       "assets/miku3.png"
     ],
     desc: "Download pack tại link dưới đây",
-    link: "https://link4m.net/mda4EQ"
+    link: "https://link4m.net/mda4EQ",
+    olink: "https://shrinkme.click/FP0MxIAd"
   },
   {
     title: "Hutao",
@@ -303,7 +321,8 @@ const javaPackList = [
       "assets/hutao8.png",
     ],
     desc: "Tải pack Hutao. Pack hutao mình khuyên mọi người không nên tải hoặc chỉ nên tải cho đẹp. lý do vì khi làm pack mình chưa tối ưu nên nó sẽ khiến game của mọi người rất lag",
-    link: "https://link4m.org/LSMiM"
+    link: "https://link4m.org/LSMiM",
+    olink: "https://shrinkme.click/1qzc2"
   },
   {
     title: "Gawr Gura",
@@ -324,7 +343,8 @@ const javaPackList = [
       "assets/gg13.png",
     ],
     desc: "Pack gawr gura, tải bằng link dưới nhe",
-    link: "https://link4m.org/SHOJKW"
+    link: "https://link4m.org/SHOJKW",
+    olink: "https://shrinkme.click/G2BOLADR"
   },
   {
     title: "Hoshino",
@@ -340,7 +360,8 @@ const javaPackList = [
       "assets/hoshino9.png",
     ],
     desc: "Pack hoshino, download bằng link dưới nhe",
-    link: "https://link4m.net/Rh74Q"
+    link: "https://link4m.net/Rh74Q",
+    olink: ""
   }
 ];
 
@@ -355,7 +376,8 @@ const bedrockPackList = [
       "assets/yuki/yuki9.png",
     ],
     desc: "Tải pack yuki suou tại link bên dưới này.",
-    link: "https://link4m.net/h27dL4cO"
+    link: "https://link4m.net/h27dL4cO",
+    olink: "https://shrinkme.click/nr6I2p"
   },
   {
     title: "Pack Hoshino Bedrock",
@@ -364,7 +386,8 @@ const bedrockPackList = [
       "assets/hoshino3.png",
     ],
     desc: "Tải pack Hoshino tại link bên dưới này.",
-    link: "https://link4m.net/M8hr4Y"
+    link: "https://link4m.net/M8hr4Y",
+    olink: ""
   },
   {
     title: "Pack Arisu Bedrock",
@@ -373,7 +396,8 @@ const bedrockPackList = [
       "assets/aris.png",
     ],
     desc: "Tải pack Aris tại link bên dưới này.",
-    link: "https://link4m.net/orASf3IO"
+    link: "https://link4m.net/orASf3IO",
+    olink: ""
   },
   {
     title: "Pack Azur lane bedrock 210",
@@ -385,7 +409,8 @@ const bedrockPackList = [
       "assets/azur/azur4.png",
     ],
     desc: "Pack azur lane, download bằng link dưới nhe",
-    link: "https://link4m.org/LIetAJ"
+    link: "https://link4m.org/LIetAJ",
+    olink: ""
   },
   {
     title: "Pack Rikka",
@@ -398,7 +423,8 @@ const bedrockPackList = [
       "assets/rikka/rikkab6.png",
     ],
     desc: "Pack rikka, download bằng link dưới nhe",
-    link: "https://link4m.org/znlgsw"
+    link: "https://link4m.org/znlgsw",
+    olink: ""
   },
   {
     title: "Pack Furina",
@@ -410,7 +436,8 @@ const bedrockPackList = [
       "assets/furina/furina14.png",
     ],
     desc: "Pack Furina, download bằng link dưới nhe",
-    link: "https://link4m.net/uOgQZx"
+    link: "https://link4m.net/uOgQZx",
+    olink: ""
   },
   {
     title: "Pack Frieren",
@@ -423,7 +450,8 @@ const bedrockPackList = [
       "assets/fri/frie.jpg",
     ],
     desc: "Pack Frieren, download bằng link dưới nhe",
-    link: "https://link4m.net/Dv7la"
+    link: "https://link4m.net/Dv7la",
+    olink: ""
   },
   {
     title: "Pack Hutao",
@@ -439,7 +467,8 @@ const bedrockPackList = [
       "assets/hutaoBR/hutao8.jpg",
     ],
     desc: "Pack Hutao, tải xuống bằng link dưới đây nhe.",
-    link: "https://link4m.net/VBJe4"
+    link: "https://link4m.net/VBJe4",
+    olink: ""
   },
   {
     title: "Pack Sky Gawr Gura",
@@ -451,7 +480,8 @@ const bedrockPackList = [
       "assets/gg13.png",
     ],
     desc: "Pack Gawr Gura, tải xuống bằng link dưới đây nhe.",
-    link: "https://link4m.org/TgAXc2ir"
+    link: "https://link4m.org/TgAXc2ir",
+    olink: ""
   },
   {
     title: "Pack Arya",
@@ -464,7 +494,8 @@ const bedrockPackList = [
       "assets/arbr4.jpg",
     ],
     desc: "Pack Arya, tải xuống bằng link dưới đây nhe.",
-    link: "https://link4m.org/xun9wMZx"
+    link: "https://link4m.org/xun9wMZx",
+    olink: ""
   },
   {
     title: "Pack blue",
@@ -473,7 +504,8 @@ const bedrockPackList = [
       "assets/blu1.png",
     ],
     desc: "Pack Sky Blue archiver, tải xuống bằng link dưới đây nhe.",
-    link: "https://link4m.net/d8Im4OhB"
+    link: "https://link4m.net/d8Im4OhB",
+    olink: ""
   },
   {
     title: "Pack honkai",
@@ -485,7 +517,8 @@ const bedrockPackList = [
       "assets/honk4.jpg",
     ],
     desc: "Pack Honkai , tải xuống bằng link dưới đây nhe.",
-    link: "https://link4m.net/3nETDYY"
+    link: "https://link4m.net/3nETDYY",
+    olink: ""
   },
   {
     title: "combo Sky pack genshin",
@@ -496,7 +529,8 @@ const bedrockPackList = [
       "assets/gen2108.png",
     ],
     desc: "combo Sky pack genshin",
-    link: "https://link4m.net/fl8J8"
+    link: "https://link4m.net/fl8J8",
+    olink: "https://shrinkme.click/e2csQ"
   }
 ];
 

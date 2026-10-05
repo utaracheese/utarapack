@@ -4,36 +4,47 @@ const versionToggleContainer = document.getElementById('versionToggleContainer')
 const cosplayPackBtn = document.getElementById('cosplayPackBtn');
 const defaultPlaceholder = "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&q=80";
 
-// Trạng thái hiện tại: version ('java' | 'bedrock') và chế độ Cosplay (true / false)
+// Trạng thái hiện tại:
 let currentVersion = 'java';
 let isCosplayPackMode = false;
 let searchQuery = "";
+let userRegion = 'vn'; // 'vn' hoặc 'other'
 
 // ========================================================
-// BỘ LỌC TÌM KIẾM THEO TÊN (TITLE) HOẶC TỪ KHÓA (KEY / KEYS)
+// BỘ LỌC TÌM KIẾM THEO QUỐC GIA & TỪ KHÓA
 // ========================================================
 function filterPacks(list) {
-  if (!searchQuery) return list;
-  const q = searchQuery.toLowerCase().trim();
-
-  return list.filter(pack => {
-    // 1. Kiểm tra tiêu đề pack
-    const titleMatch = pack.title && pack.title.toLowerCase().includes(q);
-
-    // 2. Kiểm tra từ khóa ẩn (key / keys)
-    let keyMatch = false;
-    const packKey = pack.key || pack.keys;
-
-    if (packKey) {
-      if (Array.isArray(packKey)) {
-        keyMatch = packKey.some(k => String(k).toLowerCase().includes(q));
-      } else if (typeof packKey === 'string') {
-        keyMatch = packKey.toLowerCase().includes(q);
-      }
+  if (!list) return [];
+  
+  // 1. Lọc theo quốc gia: nếu là "other", pack phải có olink hợp lệ
+  let filtered = list.filter(pack => {
+    if (userRegion === 'other') {
+      return pack.olink && typeof pack.olink === 'string' && pack.olink.trim() !== "";
     }
-
-    return titleMatch || keyMatch;
+    return true;
   });
+
+  // 2. Lọc theo từ khóa tìm kiếm (nếu có)
+  if (searchQuery) {
+    const q = searchQuery.toLowerCase().trim();
+    filtered = filtered.filter(pack => {
+      const titleMatch = pack.title && pack.title.toLowerCase().includes(q);
+
+      let keyMatch = false;
+      const packKey = pack.key || pack.keys;
+      if (packKey) {
+        if (Array.isArray(packKey)) {
+          keyMatch = packKey.some(k => String(k).toLowerCase().includes(q));
+        } else if (typeof packKey === 'string') {
+          keyMatch = packKey.toLowerCase().includes(q);
+        }
+      }
+
+      return titleMatch || keyMatch;
+    });
+  }
+
+  return filtered;
 }
 
 // HÀM HIỂN THỊ DANH SÁCH PACK
@@ -41,10 +52,17 @@ function renderPacks(list) {
   packGrid.innerHTML = ''; 
 
   if (!list || list.length === 0) {
+    let emptyMsg = 'Chưa có pack nào ở mục này nha!';
+    if (searchQuery) {
+      emptyMsg = `Không tìm thấy pack nào với từ khóa "<b>${searchQuery}</b>"`;
+    } else if (userRegion === 'other') {
+      emptyMsg = 'Hiện tại chưa có pack nào khả dụng cho khu vực quốc tế (chưa có olink).';
+    }
+
     packGrid.innerHTML = `
       <div class="empty-state">
         <div style="font-size: 2.2rem; margin-bottom: 8px;">🎭</div>
-        <div>${searchQuery ? `Không tìm thấy pack nào với từ khóa "<b>${searchQuery}</b>"` : 'Chưa có pack nào ở mục này nha!'}</div>
+        <div>${emptyMsg}</div>
       </div>
     `;
     return;
@@ -182,6 +200,25 @@ function toggleCosplayPackMode() {
 updateView();
 
 // ========================================================
+// LOGIC CHỌN QUỐC GIA (VIỆT NAM / OTHER)
+// ========================================================
+const countryModal = document.getElementById('countryModal');
+const btnCountryVn = document.getElementById('btnCountryVn');
+const btnCountryOther = document.getElementById('btnCountryOther');
+
+btnCountryVn.addEventListener('click', () => {
+  userRegion = 'vn';
+  countryModal.classList.remove('active');
+  updateView();
+});
+
+btnCountryOther.addEventListener('click', () => {
+  userRegion = 'other';
+  countryModal.classList.remove('active');
+  updateView();
+});
+
+// ========================================================
 // LOGIC THANH TÌM KIẾM, NÚT NHANH 210 & BONG BÓNG HƯỚNG DẪN
 // ========================================================
 const searchToggleBtn = document.getElementById('searchToggleBtn');
@@ -193,14 +230,12 @@ const searchWrapper = document.getElementById('searchWrapper');
 const quickTag210 = document.getElementById('quickTag210');
 const searchBubble = document.getElementById('searchBubble');
 
-// Tự động xoá bong bóng chỉ dẫn sau đúng 2.5 giây
 if (searchBubble) {
   setTimeout(() => {
     searchBubble.remove();
   }, 2500);
 }
 
-// Bật/tắt thanh tìm kiếm khi bấm kính lúp
 searchToggleBtn.addEventListener('click', (e) => {
   e.stopPropagation();
   const isOpen = searchDropdown.classList.toggle('show');
@@ -210,14 +245,12 @@ searchToggleBtn.addEventListener('click', (e) => {
   }
 });
 
-// Nhập ký tự để tìm kiếm tức thì
 searchInput.addEventListener('input', (e) => {
   searchQuery = e.target.value;
   searchClearBtn.style.display = searchQuery ? 'flex' : 'none';
   updateView();
 });
 
-// Nút xóa nhanh từ khóa (✕)
 searchClearBtn.addEventListener('click', () => {
   searchInput.value = '';
   searchQuery = '';
@@ -226,7 +259,6 @@ searchClearBtn.addEventListener('click', () => {
   updateView();
 });
 
-// Bấm nút gợi ý nhanh 210 bên cạnh kính lúp
 if (quickTag210) {
   quickTag210.addEventListener('click', () => {
     searchInput.value = '210';
@@ -238,7 +270,6 @@ if (quickTag210) {
   });
 }
 
-// Nhấn vào các tag gợi ý trong menu (210, genshin, honkai,...)
 tagBtns.forEach(btn => {
   btn.addEventListener('click', () => {
     const tag = btn.getAttribute('data-tag');
@@ -249,13 +280,13 @@ tagBtns.forEach(btn => {
   });
 });
 
-// Tắt menu tìm kiếm khi click ra ngoài
 document.addEventListener('click', (e) => {
   if (!searchWrapper.contains(e.target)) {
     searchDropdown.classList.remove('show');
     searchToggleBtn.classList.remove('active');
   }
 });
+
 // ========================================================
 // LOGIC MODAL CHI TIẾT PACK
 // ========================================================
@@ -325,8 +356,11 @@ function openModal(pack, initialImgIdx = 0) {
   }
 
   modalDesc.textContent = pack.desc || "Không có mô tả chi tiết cho pack này.";
-  modalLinkBtn.href = pack.link;
-  currentActiveLink = pack.link;
+  
+  // Xác định đường link dựa theo khu vực (VN hay Other)
+  const downloadLink = (userRegion === 'other' && pack.olink) ? pack.olink : pack.link;
+  modalLinkBtn.href = downloadLink;
+  currentActiveLink = downloadLink;
 
   btnCopyLink.textContent = "📋 Sao chép Link";
   modal.classList.add('active');
