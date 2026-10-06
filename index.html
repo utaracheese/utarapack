@@ -752,7 +752,44 @@
       font-size: 0.92rem;
       font-weight: 500;
       color: #64748b;
-      margin-bottom: 22px;
+      margin-bottom: 12px; /* Giảm margin-bottom để chừa chỗ cho khung lưu ý */
+    }
+
+    /* KHUNG LƯU Ý CHỌN QUỐC GIA */
+    .country-hint {
+      background: rgba(255, 255, 255, 0.55);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      border-radius: 14px;
+      padding: 9px 12px;
+      margin-bottom: 18px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    }
+
+    .hint-vn {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #334155;
+      margin-bottom: 2px;
+    }
+
+    .hint-en {
+      font-size: 0.74rem;
+      font-weight: 400;
+      color: #64748b;
+      font-style: italic;
+    }
+
+    /* ĐỒNG BỘ MÀU CHO GIAO DIỆN CYBER TOXIC */
+    body.theme-toxic .country-hint {
+      background: rgba(1, 15, 7, 0.7);
+      border: 1px solid rgba(57, 255, 20, 0.25);
+    }
+    body.theme-toxic .hint-vn {
+      color: #a7f3d0;
+    }
+    body.theme-toxic .hint-en {
+      color: #6ee7b7;
     }
 
     .country-btn-group {
@@ -1192,6 +1229,12 @@
       <div class="country-icon">🌏</div>
       <h2 class="country-title-vn">Bạn đến từ đất nước nào?</h2>
       <p class="country-title-en">Where are you from?</p>
+
+      <!-- KHỐI LƯU Ý / GỢI Ý MỚI -->
+      <div class="country-hint">
+        <p class="hint-vn">💡 Chọn đúng khu vực giúp bạn nhận đúng link tải chuẩn nhất.</p>
+        <p class="hint-en">Selecting the right region ensures you get the correct download link.</p>
+      </div>
       
       <div class="country-btn-group">
         <button class="country-btn country-btn-vn" id="btnCountryVn">
