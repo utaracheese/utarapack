@@ -62,7 +62,7 @@ const javaPackList = [
     ],
     desc: "Download pack tại link dưới đây",
     link: "https://link4m.org/A6KZtDEn",
-    olink: "https://work.ink/33C2/dlsiestaf-9l10zip-google-drive"
+    olink: ""
   },
   {
     title: "Arisu Tendou",
@@ -82,7 +82,7 @@ const javaPackList = [
     ],
     desc: "Tải pack Aris Tendou tại link bên dưới này.",
     link: "https://link4m.net/TbMqts",
-    olink: "https://work.ink/33C2/blarisf-9l120zip-google-drive"
+    olink: "https://shrinkme.click/tmO3kJPz"
   },
   {
     title: "Elaina",
@@ -198,7 +198,7 @@ const javaPackList = [
     ],
     desc: "Pack genshin download bằng link dưới đây.",
     link: "https://link4m.org/8mzEed",
-    olink: "https://work.ink/33C2/9lgenshin6l18f-9l102zip-google-drive"
+    olink: "https://shrinkme.click/KBAbdO"
   },
   {
     title: "Blue Archive 210",
@@ -208,7 +208,7 @@ const javaPackList = [
     ],
     desc: "Pack hentai Blue Archiver, download bằng link dưới nhe",
     link: "https://link4m.org/DocKrNd",
-    olink: "https://work.ink/33C2/dlbluearchiver6l18zip-google-drive"
+    olink: ""
   },
   {
     title: "Honkai Star Rail 210",
@@ -218,7 +218,7 @@ const javaPackList = [
     ],
     desc: "Pack Honkai Star Rail, download bằng link dưới nhe",
     link: "https://link4m.net/4VhcfzFr",
-    olink: "https://work.ink/33C2/clhonkai6l18f-9l100zip-google-drive"
+    olink: ""
   },
   {
     title: "Kaoruko Waguri",
@@ -237,7 +237,7 @@ const javaPackList = [
     ],
     desc: "Pack Waguri, download bằng link dưới nhe",
     link: "https://link4m.org/0p421",
-    olink: "https://work.ink/33C2/dlwagurif-9l1015zip-google-drive"
+    olink: ""
   },
   {
     title: "Mahiru Shiina",
@@ -259,7 +259,7 @@ const javaPackList = [
     ],
     desc: "Pack Mahiru, download bằng link dưới nhe",
     link: "https://link4m.org/Pv3qtb",
-    olink: "https://work.ink/33C2/dlmahiruf-dl20zip-google-drive"
+    olink: ""
   },
   {
     title: "Alya - Alisa Mikhailovna Kujou",
@@ -275,7 +275,7 @@ const javaPackList = [
     ],
     desc: "Pack đầu tay của tui nhe 💖",
     link: "https://link4m.org/aaNlL",
-    olink: "https://work.ink/33C2/9lalyaf-9l20zip-google-drive"
+    olink: "https://shrinkme.click/DwKGXu"
   },
   {
     title: "Roxy Migurdia",
@@ -292,7 +292,7 @@ const javaPackList = [
       "assets/roxy8.png",
     ],
     desc: "Download pack tại link dưới đây <3",
-    link: "https://work.ink/33C2/9lroxyf-9l121zip-google-drive",
+    link: "https://link4m.org/of6KTBPw",
     olink: ""
   },
   {
@@ -305,7 +305,7 @@ const javaPackList = [
     ],
     desc: "Download pack tại link dưới đây",
     link: "https://link4m.net/mda4EQ",
-    olink: "https://work.ink/33C2/dlnakanoclmikuf-9l10zip-google-drive"
+    olink: "https://shrinkme.click/FP0MxIAd"
   },
   {
     title: "Hutao",
@@ -322,7 +322,7 @@ const javaPackList = [
     ],
     desc: "Tải pack Hutao. Pack hutao mình khuyên mọi người không nên tải hoặc chỉ nên tải cho đẹp. lý do vì khi làm pack mình chưa tối ưu nên nó sẽ khiến game của mọi người rất lag",
     link: "https://link4m.org/LSMiM",
-    olink: "https://work.ink/33C2/clhutaof-9l12zip-google-drive"
+    olink: "https://shrinkme.click/1qzc2"
   },
   {
     title: "Gawr Gura",
@@ -344,7 +344,7 @@ const javaPackList = [
     ],
     desc: "Pack gawr gura, tải bằng link dưới nhe",
     link: "https://link4m.org/SHOJKW",
-    olink: "https://work.ink/33C2/blgawr-guraf-9l10zip-google-drive"
+    olink: "https://shrinkme.click/G2BOLADR"
   },
   {
     title: "Hoshino",
@@ -361,7 +361,7 @@ const javaPackList = [
     ],
     desc: "Pack hoshino, download bằng link dưới nhe",
     link: "https://link4m.net/Rh74Q",
-    olink: "https://work.ink/33C2/dlhoshinof-9l102zip-google-drive"
+    olink: ""
   }
 ];
 
@@ -518,7 +518,7 @@ const bedrockPackList = [
     ],
     desc: "Pack Honkai , tải xuống bằng link dưới đây nhe.",
     link: "https://link4m.net/3nETDYY",
-    olink: "https://work.ink/33C2/skyhonkaibrmcpack-google-drive"
+    olink: ""
   },
   {
     title: "combo Sky pack genshin",
@@ -530,7 +530,7 @@ const bedrockPackList = [
     ],
     desc: "combo Sky pack genshin",
     link: "https://link4m.net/fl8J8",
-    olink: "https://work.ink/33C2/b4ef3dcd-c85c-4655-acd8-029241a43111"
+    olink: "https://shrinkme.click/e2csQ"
   }
 ];
 
