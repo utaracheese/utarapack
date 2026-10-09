@@ -548,7 +548,7 @@ const cosplayPackList = [
     desc: "fireflycosplay18+: thông tin của coser trong pack nha!",
     link: "https://drive.google.com/file/d/1-fQ6egvgNadEPqv3UI0YsdO6db88PeO4/view?usp=sharing",
     olink: "https://shrinkme.click/JKkYqt"
-  }
+  },
   {
     title: "Cyrene Cos 18+",
     key: "",
@@ -558,5 +558,5 @@ const cosplayPackList = [
     desc: "Cyrene cosplay18+: thông tin của coser trong pack nha!",
     link: "https://www.mediafire.com/file/qwryewpj2p1lm1a/%25C2%25A79%25C2%25A7lCosplayCyrene%25C2%25A76%25C2%25A7l18.zip/file",
     olink: "https://shrinkme.click/r7lRiWu1"
-  }
+  },
 ];
