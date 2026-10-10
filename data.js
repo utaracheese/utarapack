@@ -370,6 +370,16 @@ const javaPackList = [
 // ========================================================
 const bedrockPackList = [
   {
+    title: "Pack Cartethyia Bedrock",
+    key: "Wuthering Waves Cartethyia bedrock",
+    images: [
+      "assets/car/car.png",
+    ],
+    desc: "Tải pack Cartethyia tại link bên dưới này.",
+    link: "https://link4m.org/go/mU6br",
+    olink: "https://shrinkme.click/GBpuh8t"
+  },
+  {
     title: "Pack yuki suou Bedrock",
     key: "Yuki Suou 210",
     images: [
