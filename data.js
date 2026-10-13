@@ -370,6 +370,16 @@ const javaPackList = [
 // ========================================================
 const bedrockPackList = [
   {
+    title: "Pack Elaina Bedrock",
+    key: "Elaina bedrock",
+    images: [
+      "assets/elaina/elaina4.png",
+    ],
+    desc: "Tải pack Cartethyia tại link bên dưới này.",
+    link: "https://link4m.net/QsJoyU",
+    olink: "https://shrinkme.click/0bcLB"
+  },
+  {
     title: "Pack Cartethyia Bedrock",
     key: "Wuthering Waves Cartethyia bedrock",
     images: [
