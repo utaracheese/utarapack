@@ -25,10 +25,20 @@ const notes = {
 // ========================================================
 const javaPackList = [
   {
+    title: "Cartethyia",
+    key: "Cartethyia anime waifu",
+    images: [
+      "assets/car/car1.png",
+    ],
+    desc: "Download pack tại link dưới đây",
+    link: "https://link4m.org/HWMsA7",
+    olink: "https://shrinkme.click/SmnAGP"
+  },
+  {
     title: "zenless Zone Zero 210",
     key: "zenless Zone Zero 210",
     images: [
-      "assets/zzz/",
+      "assets/zzz/zzz.png",
     ],
     desc: "Download pack tại link dưới đây",
     link: "https://link4m.net/cQgqJ",
