@@ -1144,6 +1144,16 @@
       .search-box-dropdown { left: 0; right: 0; width: 100%; max-width: 100%; }
       .modal-content { padding: 16px; border-radius: 18px; }
       .modal-carousel { height: 200px; }
+      
+    }
+    /* Nút Discord tùy chỉnh (tùy chọn màu đặc trưng Discord nếu muốn) */
+    .discord-btn:hover {
+      background: rgba(88, 101, 242, 0.25) !important;
+      border-color: #5865f2 !important;
+    }
+    body.theme-toxic .discord-btn:hover {
+      background: rgba(57, 255, 20, 0.2) !important;
+      border-color: #39ff14 !important;
     }
   </style>
 </head>
@@ -1210,6 +1220,11 @@
             <span class="profile-name">utara🧀</span>
             <span class="profile-id">utara2613</span>
           </div>
+        </a>
+
+        <!-- NÚT DISCORD (MỚI) -->
+        <a href="https://discord.gg/74QMZmvd3q" target="_blank" class="icon-btn discord-btn" title="Tham gia Discord">
+          <span>💬</span>
         </a>
 
         <button class="icon-btn" id="mailBtn" title="Hộp thư thông báo">
