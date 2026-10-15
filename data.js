@@ -25,6 +25,16 @@ const notes = {
 // ========================================================
 const javaPackList = [
   {
+    title: "Date A Live 210",
+    key: "Date A Live Kurumi 210 hentai anime",
+    images: [
+      "assets/date/date.png",
+    ],
+    desc: "Download pack tại link dưới đây",
+    link: "https://link4m.org/S4J3e",
+    olink: "https://shrinkme.click/7POi05yq"
+  },
+  {
     title: "Cartethyia",
     key: "Cartethyia anime waifu",
     images: [
