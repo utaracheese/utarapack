@@ -390,6 +390,16 @@ const javaPackList = [
 // ========================================================
 const bedrockPackList = [
   {
+    title: "Date A Live",
+    key: "kurumi bedrock",
+    images: [
+      "assets/date/date.jpg",
+    ],
+    desc: "Tải pack Date A Live tại link bên dưới này.",
+    link: "https://link4m.org/7Z8QUyi",
+    olink: ""
+  },
+  {
     title: "Pack Elaina Bedrock",
     key: "Elaina bedrock",
     images: [
