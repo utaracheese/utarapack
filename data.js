@@ -25,6 +25,16 @@ const notes = {
 // ========================================================
 const javaPackList = [
   {
+    title: "Ruan Mei",
+    key: "Ruan Mei Waifu Anime",
+    images: [
+      "assets/ruanmei.png",
+    ],
+    desc: "Download pack tại link dưới đây",
+    link: "https://link4m.net/vqVrIX3",
+    olink: "https://shrinkme.click/A1D6"
+  },
+  {
     title: "Date A Live 210",
     key: "Date A Live Kurumi 210 hentai anime",
     images: [
