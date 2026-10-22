@@ -15,7 +15,7 @@ Type : mọi người nhập thể loại hent hoặc ani.
 
 // NỘI DUNG LƯU Ý CHO TỪNG PHIÊN BẢN
 const notes = {
-  java: "Lưu ý : Nào đủ 2k follow 10pack tiếp theo của toi sẽ không phải vượt link nhe ❤",
+  java: "Tham gia discord để biết được các pack kế nhe",
   bedrock: "Mình không đủ khả năng để làm các gui nhe mọi người, mọi người nếu tải chơi có thể chơi chỉ có sky thui nhe ❤",
   cosplay: "Các pack cosplay mình sẽ không đăng lên tiktok để thông báo được nên mọi người có thể vào đây để kiểm tra theo thời gian nha ❤"
 };
@@ -24,6 +24,16 @@ const notes = {
 // 1. DANH SÁCH PACK JAVA CHÍNH
 // ========================================================
 const javaPackList = [
+  {
+    title: "Asuna Yuuki",
+    key: "asuna yuuki sword art online",
+    images: [
+      "assets/asuna.png",
+    ],
+    desc: "Download pack tại link dưới đây",
+    link: "https://link4m.org/3Fzs4",
+    olink: "https://shrinkme.click/AlTEB9Ui"
+  },
   {
     title: "Ruan Mei",
     key: "Ruan Mei Waifu Anime",
@@ -58,7 +68,7 @@ const javaPackList = [
     title: "zenless Zone Zero 210",
     key: "zenless Zone Zero 210",
     images: [
-      "assets/zzz/zzz.png",
+      "assets/zzz.png",
     ],
     desc: "Download pack tại link dưới đây",
     link: "https://link4m.net/cQgqJ",
@@ -400,6 +410,16 @@ const javaPackList = [
 // ========================================================
 const bedrockPackList = [
   {
+    title: "Ruan Mei Bedrock",
+    key: "",
+    images: [
+      "assets/ruanmeibr.png",
+    ],
+    desc: "Tải pack RuanMei Bedrock tại link bên dưới này.",
+    link: "https://link4m.net/lw2EIsi",
+    olink: "https://shrinkme.click/OJoww05"
+  },
+  {
     title: "Date A Live",
     key: "kurumi bedrock",
     images: [
@@ -407,7 +427,7 @@ const bedrockPackList = [
     ],
     desc: "Tải pack Date A Live tại link bên dưới này.",
     link: "https://link4m.org/ZEydR",
-    olink: ""
+    olink: "https://shrinkme.click/gW9K05Pc"
   },
   {
     title: "Pack Elaina Bedrock",
