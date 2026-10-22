@@ -406,7 +406,7 @@ const bedrockPackList = [
       "assets/date/date.jpg",
     ],
     desc: "Tải pack Date A Live tại link bên dưới này.",
-    link: "https://link4m.org/7Z8QUyi",
+    link: "https://link4m.org/ZEydR",
     olink: ""
   },
   {
