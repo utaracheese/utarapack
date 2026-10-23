@@ -410,6 +410,16 @@ const javaPackList = [
 // ========================================================
 const bedrockPackList = [
   {
+    title: "Asuna Bedrock",
+    key: "Sword art online waifu anime",
+    images: [
+      "assets/asunabr.png",
+    ],
+    desc: "Tải pack Asuna Bedrock tại link bên dưới này.",
+    link: "https://link4m.org/TVStgt",
+    olink: "https://shrinkme.click/wntd7"
+  },
+  {
     title: "Ruan Mei Bedrock",
     key: "",
     images: [
