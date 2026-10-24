@@ -31,8 +31,8 @@ const javaPackList = [
       "assets/cos/wag210.png",
     ],
     desc: "Download pack tại link dưới đây",
-    link: "https://link4m.net/JPdFX",
-    olink: "https://shrinkme.click/tYTd"
+    link: "https://link4m.org/pTnor",
+    olink: "https://shrinkme.click/23xAeNu"
   },
   {
     title: "Asuna Yuuki",
