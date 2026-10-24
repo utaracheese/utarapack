@@ -28,6 +28,16 @@ const javaPackList = [
     title: "Asuna Yuuki",
     key: "asuna yuuki sword art online",
     images: [
+      "assets/cos/wag210.png",
+    ],
+    desc: "Download pack tại link dưới đây",
+    link: "https://link4m.net/JPdFX",
+    olink: "https://shrinkme.click/tYTd"
+  },
+  {
+    title: "Asuna Yuuki",
+    key: "asuna yuuki sword art online",
+    images: [
       "assets/asuna.png",
     ],
     desc: "Download pack tại link dưới đây",
