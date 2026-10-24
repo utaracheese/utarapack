@@ -25,8 +25,8 @@ const notes = {
 // ========================================================
 const javaPackList = [
   {
-    title: "Asuna Yuuki",
-    key: "asuna yuuki sword art online",
+    title: "Waguri 210",
+    key: "hentai 210 18",
     images: [
       "assets/cos/wag210.png",
     ],
