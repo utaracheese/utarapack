@@ -420,6 +420,16 @@ const javaPackList = [
 // ========================================================
 const bedrockPackList = [
   {
+    title: "Waguri 210",
+    key: "hentai 210 18",
+    images: [
+      "assets/cos/wag210.png",
+    ],
+    desc: "Download pack tại link dưới đây",
+    link: "https://link4m.net/fQ6MMi",
+    olink: "https://shrinkme.click/era2IW"
+  },
+  {
     title: "Asuna Bedrock",
     key: "Sword art online waifu anime",
     images: [
