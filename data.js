@@ -430,6 +430,16 @@ const javaPackList = [
 // ========================================================
 const bedrockPackList = [
   {
+    title: "Ganyu 210",
+    key: "hentai 18",
+    images: [
+      "assets/ganyu.png",
+    ],
+    desc: "Download pack tại link dưới đây",
+    link: "https://link4m.org/U7aww4y",
+    olink: "https://shrinkme.click/u2LreQ"
+  },
+  {
     title: "Waguri 210",
     key: "hentai 210 18",
     images: [
