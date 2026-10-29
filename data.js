@@ -25,6 +25,16 @@ const notes = {
 // ========================================================
 const javaPackList = [
   {
+    title: "Ganyu 210",
+    key: "hentai 18",
+    images: [
+      "assets/ganyu.png",
+    ],
+    desc: "Download pack tại link dưới đây",
+    link: "https://link4m.net/XEfmB",
+    olink: "https://shrinkme.click/iRFqs"
+  },
+  {
     title: "Waguri 210",
     key: "hentai 210 18",
     images: [
