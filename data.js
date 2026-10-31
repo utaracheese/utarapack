@@ -25,6 +25,16 @@ const notes = {
 // ========================================================
 const javaPackList = [
   {
+    title: "Furina 210",
+    key: "hentai 18",
+    images: [
+      "assets/furina.png",
+    ],
+    desc: "Download pack tại link dưới đây",
+    link: "https://link4m.org/m5msYb",
+    olink: ""
+  },
+  {
     title: "Ganyu 210",
     key: "hentai 18",
     images: [
@@ -429,6 +439,16 @@ const javaPackList = [
 // 2. DANH SÁCH PACK BEDROCK CHÍNH
 // ========================================================
 const bedrockPackList = [
+    {
+    title: "Furina 210",
+    key: "hentai 18",
+    images: [
+      "assets/furina.png",
+    ],
+    desc: "Download pack tại link dưới đây",
+    link: "https://link4m.org/0usooGW7",
+    olink: ""
+  },
   {
     title: "Ganyu 210",
     key: "hentai 18",
