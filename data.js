@@ -28,11 +28,7 @@ const javaPackList = [
     title: "Furina 210",
     key: "hentai 18",
     images: [
-<<<<<<< HEAD
       "assets/furina/pack_icon.png",
-=======
-      "assets/furina.png",
->>>>>>> 4992cab471dc983e9d8afcef7f8aef45c11e7bd6
     ],
     desc: "Download pack tại link dưới đây",
     link: "https://link4m.org/m5msYb",
@@ -447,11 +443,7 @@ const bedrockPackList = [
     title: "Furina 210",
     key: "hentai 18",
     images: [
-<<<<<<< HEAD
       "assets/furina/pack_icon.png",
-=======
-      "assets/furina.png",
->>>>>>> 4992cab471dc983e9d8afcef7f8aef45c11e7bd6
     ],
     desc: "Download pack tại link dưới đây",
     link: "https://link4m.org/0usooGW7",
