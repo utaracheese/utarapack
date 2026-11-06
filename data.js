@@ -32,7 +32,7 @@ const javaPackList = [
     ],
     desc: "Download pack tại link dưới đây",
     link: "https://link4m.org/m5msYb",
-    olink: ""
+    olink: "https://shrinkme.click/t2O3BnV"
   },
   {
     title: "Ganyu 210",
@@ -447,7 +447,7 @@ const bedrockPackList = [
     ],
     desc: "Download pack tại link dưới đây",
     link: "https://link4m.org/0usooGW7",
-    olink: ""
+    olink: "https://shrinkme.click/zjnHBDfT"
   },
   {
     title: "Ganyu 210",
