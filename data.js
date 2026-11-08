@@ -25,6 +25,16 @@ const notes = {
 // ========================================================
 const javaPackList = [
   {
+    title: "Silver Wolf",
+    key: "honkai star rail",
+    images: [
+      "assets/wolf/wolf.png",
+    ],
+    desc: "Download pack tại link dưới đây",
+    link: "https://link4m.net/go/rXTfN",
+    olink: "https://shrinkme.click/jjbGK4c"
+  },
+  {
     title: "Furina 210",
     key: "hentai 18",
     images: [
