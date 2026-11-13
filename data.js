@@ -449,7 +449,17 @@ const javaPackList = [
 // 2. DANH SÁCH PACK BEDROCK CHÍNH
 // ========================================================
 const bedrockPackList = [
-    {
+  {
+    title: "Silver Wolf",
+    key: "honkai star rail",
+    images: [
+      "assets/wolf/wolf2.png",
+    ],
+    desc: "Download pack tại link dưới đây",
+    link: "https://link4m.org/IgfmDMPi",
+    olink: "https://shrinkme.click/f6yw"
+  },   
+  {
     title: "Furina 210",
     key: "hentai 18",
     images: [
