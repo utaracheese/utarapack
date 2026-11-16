@@ -39,7 +39,7 @@ function createThemeSwitcherUI() {
     btn.id = `theme-btn-${theme.id}`;
     btn.title = theme.name;
     btn.innerHTML = `<span class="theme-icon">${theme.icon}</span>`;
-    
+
     btn.addEventListener('click', () => {
       applyTheme(theme.id);
     });
@@ -53,7 +53,7 @@ function createThemeSwitcherUI() {
 
 function updateArrowPosition() {
   if (window.innerWidth <= 768) return;
-  
+
   const activeBtn = document.getElementById(`theme-btn-${currentTheme}`);
   const arrow = document.getElementById('themeIndicatorArrow');
   if (activeBtn && arrow) {
@@ -81,9 +81,8 @@ function applyTheme(themeId) {
   updateArrowPosition();
 }
 
-// HIỆU ỨNG RIPPLE
 function handleToxicClickRipple(e) {
-  if (currentTheme !== 'toxic') return;
+  if (currentTheme !== 'toxic' || document.body.classList.contains('skybox-open')) return;
 
   const ripple = document.createElement('div');
   ripple.className = 'toxic-ripple';
@@ -91,13 +90,9 @@ function handleToxicClickRipple(e) {
   ripple.style.top = `${e.clientY}px`;
 
   document.body.appendChild(ripple);
-
-  ripple.addEventListener('animationend', () => {
-    ripple.remove();
-  });
+  ripple.addEventListener('animationend', () => ripple.remove());
 }
 
-// CANVAS LỤC GIÁC ROBOT
 function setupHexagonCanvas() {
   hexCanvas = document.createElement('canvas');
   hexCanvas.id = 'toxic-hex-canvas';
@@ -134,7 +129,7 @@ function drawHexagon(ctx, x, y, r, rotation = 0) {
 
 function spawnHexagon() {
   if (currentTheme !== 'toxic') return;
-  if (toxicHexagons.length > 8) return;
+  if (toxicHexagons.length > 7) return;
 
   const radius = Math.random() * 50 + 40;
   toxicHexagons.push({
@@ -151,56 +146,58 @@ function spawnHexagon() {
 }
 
 function loopHexagons() {
-  hexCtx.clearRect(0, 0, hexCanvas.width, hexCanvas.height);
+  if (!document.hidden && !document.body.classList.contains('skybox-open')) {
+    hexCtx.clearRect(0, 0, hexCanvas.width, hexCanvas.height);
 
-  if (Math.random() < 0.02) {
-    spawnHexagon();
-  }
-
-  for (let i = toxicHexagons.length - 1; i >= 0; i--) {
-    const h = toxicHexagons[i];
-
-    if (h.state === 'in') {
-      h.alpha += 0.008;
-      if (h.alpha >= h.maxAlpha) {
-        h.alpha = h.maxAlpha;
-        h.state = 'hold';
-      }
-    } else if (h.state === 'hold') {
-      h.holdTimer--;
-      if (h.holdTimer <= 0) h.state = 'out';
-    } else if (h.state === 'out') {
-      h.alpha -= 0.006;
-      if (h.alpha <= 0) {
-        toxicHexagons.splice(i, 1);
-        continue;
-      }
+    if (Math.random() < 0.02) {
+      spawnHexagon();
     }
 
-    h.rotation += h.rotSpeed;
+    for (let i = toxicHexagons.length - 1; i >= 0; i--) {
+      const h = toxicHexagons[i];
 
-    hexCtx.save();
-    hexCtx.strokeStyle = `rgba(57, 255, 20, ${h.alpha})`;
-    hexCtx.fillStyle = `rgba(16, 185, 129, ${h.alpha * 0.08})`;
-    hexCtx.lineWidth = 1.6;
-    hexCtx.shadowColor = '#00ff66';
-    hexCtx.shadowBlur = 14;
+      if (h.state === 'in') {
+        h.alpha += 0.008;
+        if (h.alpha >= h.maxAlpha) {
+          h.alpha = h.maxAlpha;
+          h.state = 'hold';
+        }
+      } else if (h.state === 'hold') {
+        h.holdTimer--;
+        if (h.holdTimer <= 0) h.state = 'out';
+      } else if (h.state === 'out') {
+        h.alpha -= 0.006;
+        if (h.alpha <= 0) {
+          toxicHexagons.splice(i, 1);
+          continue;
+        }
+      }
 
-    drawHexagon(hexCtx, h.x, h.y, h.radius, h.rotation);
-    hexCtx.fill();
-    hexCtx.stroke();
+      h.rotation += h.rotSpeed;
 
-    hexCtx.shadowBlur = 6;
-    hexCtx.lineWidth = 1;
-    drawHexagon(hexCtx, h.x, h.y, h.radius * 0.6, -h.rotation);
-    hexCtx.stroke();
+      hexCtx.save();
+      hexCtx.strokeStyle = `rgba(57, 255, 20, ${h.alpha})`;
+      hexCtx.fillStyle = `rgba(16, 185, 129, ${h.alpha * 0.08})`;
+      hexCtx.lineWidth = 1.6;
+      hexCtx.shadowColor = '#00ff66';
+      hexCtx.shadowBlur = 12;
 
-    hexCtx.beginPath();
-    hexCtx.arc(h.x, h.y, 2.5, 0, Math.PI * 2);
-    hexCtx.fillStyle = `rgba(57, 255, 20, ${h.alpha * 1.5})`;
-    hexCtx.fill();
+      drawHexagon(hexCtx, h.x, h.y, h.radius, h.rotation);
+      hexCtx.fill();
+      hexCtx.stroke();
 
-    hexCtx.restore();
+      hexCtx.shadowBlur = 6;
+      hexCtx.lineWidth = 1;
+      drawHexagon(hexCtx, h.x, h.y, h.radius * 0.6, -h.rotation);
+      hexCtx.stroke();
+
+      hexCtx.beginPath();
+      hexCtx.arc(h.x, h.y, 2.5, 0, Math.PI * 2);
+      hexCtx.fillStyle = `rgba(57, 255, 20, ${h.alpha * 1.5})`;
+      hexCtx.fill();
+
+      hexCtx.restore();
+    }
   }
 
   hexAnimationId = requestAnimationFrame(loopHexagons);
