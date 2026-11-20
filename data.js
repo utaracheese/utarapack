@@ -88,7 +88,7 @@ const javaPackList = [
     desc: "Download pack tại link dưới đây",
     link: "https://link4m.net/vqVrIX3",
     olink: "https://shrinkme.click/A1D6",
-    linktt: "https://www.tiktok.com/@utara2610/photo/7699458382331120917"
+    linktt: ""
   },
   {
     title: "Date A Live 210",
@@ -564,7 +564,7 @@ const bedrockPackList = [
     desc: "Tải pack Cartethyia tại link bên dưới này.",
     link: "https://link4m.net/QsJoyU",
     olink: "https://shrinkme.click/0bcLB",
-    linktt: ""
+    linktt: "https://www.tiktok.com/@utara2610/video/7696151838789471508"
   },
   {
     title: "Pack Cartethyia Bedrock",
@@ -575,7 +575,7 @@ const bedrockPackList = [
     desc: "Tải pack Cartethyia tại link bên dưới này.",
     link: "https://link4m.org/go/mU6br",
     olink: "https://shrinkme.click/GBpuh8t",
-    linktt: ""
+    linktt: "https://www.tiktok.com/@utara2610/video/7695260671721655572"
   },
   {
     title: "Pack yuki suou Bedrock",
