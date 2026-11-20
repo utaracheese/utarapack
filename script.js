@@ -1,3 +1,16 @@
+// ========================================================
+// TỰ ĐỘNG CHUYỂN GIAO DIỆN SÁNG / TỐI THEO GIỜ TRÊN MÁY
+// (06:00 - 17:59: Sáng | 18:00 - 05:59: Tối)
+// ========================================================
+function applyAutoThemeByTime() {
+  const hour = new Date().getHours();
+  const isDaytime = hour >= 6 && hour < 18;
+  document.body.classList.toggle('light-theme', isDaytime);
+}
+
+applyAutoThemeByTime();
+setInterval(applyAutoThemeByTime, 60000);
+
 const packGrid = document.getElementById('packGrid');
 const footerNote = document.getElementById('footerNote');
 const versionToggleContainer = document.getElementById('versionToggleContainer');
@@ -110,8 +123,6 @@ function renderPacks(list) {
     const images = pack.images || [];
     const totalImages = images.length;
 
-    // Chỉ gán class tải trước cho ảnh đầu tiên (idx === 0).
-    // Các ảnh sau giữ ở data-src, CHỈ tải khi người dùng hover hoặc chuyển slide.
     const slidesHtml = images.map((img, i) => `
       <div class="carousel-slide">
         <img class="${i === 0 ? 'lazy-first-img' : 'deferred-slide-img'}" data-src="${img}" decoding="async" alt="pack">
@@ -151,7 +162,6 @@ function renderPacks(list) {
 
     function ensureSlideLoaded(idx) {
       if (slideImgs[idx]) loadImageElement(slideImgs[idx]);
-      // Tải đón trước ảnh tiếp theo để khi lướt không bị khựng
       if (totalImages > 1) {
         const nextIdx = (idx + 1) % totalImages;
         if (slideImgs[nextIdx]) loadImageElement(slideImgs[nextIdx]);
@@ -340,9 +350,10 @@ document.addEventListener('click', (e) => {
 });
 
 // ========================================================
-// LOGIC MODAL CHI TIẾT PACK (TẢI ẢNH THEO SLIDE ĐANG XEM)
+// LOGIC MODAL CHI TIẾT PACK + NHÚNG BÀI ĐĂNG TIKTOK BÊN PHẢI
 // ========================================================
 const modal = document.getElementById('detailModal');
+const detailModalContent = document.getElementById('detailModalContent');
 const btnClose = document.getElementById('btnClose');
 const modalCarouselContainer = document.getElementById('modalCarouselContainer');
 const modalTrack = document.getElementById('modalCarouselTrack');
@@ -354,17 +365,58 @@ const modalSource = document.getElementById('modalSource');
 const modalDesc = document.getElementById('modalDesc');
 const modalLinkBtn = document.getElementById('modalLinkBtn');
 const btnCopyLink = document.getElementById('btnCopyLink');
+const modalTiktokWrap = document.getElementById('modalTiktokWrap');
+const modalTiktokDirectLink = document.getElementById('modalTiktokDirectLink');
 
 let currentActiveLink = "";
 let modalCurrentIdx = 0;
 let modalTotalSlides = 0;
 let modalImgs = [];
 
+function extractTikTokVideoId(url) {
+  if (!url || typeof url !== 'string') return null;
+  const match = url.trim().match(/\/(?:video|photo)\/(\d+)/i);
+  return match ? match[1] : null;
+}
+
+function renderTikTokEmbed(linktt) {
+  const cleanUrl = (linktt || '').trim();
+  if (!cleanUrl) {
+    detailModalContent.classList.remove('has-tiktok');
+    modalTiktokWrap.innerHTML = '';
+    return;
+  }
+
+  detailModalContent.classList.add('has-tiktok');
+  modalTiktokDirectLink.href = cleanUrl;
+
+  const videoId = extractTikTokVideoId(cleanUrl);
+  if (videoId) {
+    modalTiktokWrap.innerHTML = `
+      <iframe
+        src="https://www.tiktok.com/embed/v2/${videoId}"
+        allowfullscreen
+        scrolling="no"
+        allow="encrypted-media;"
+        loading="lazy"
+        title="TikTok Post">
+      </iframe>
+    `;
+  } else {
+    modalTiktokWrap.innerHTML = `
+      <div class="tiktok-fallback-box">
+        <div style="font-size: 2rem;">🎵</div>
+        <div>Link này không phải link bài viết đầy đủ (<code>/video/...</code>), nên không thể tự nhúng trực tiếp.</div>
+        <a href="${cleanUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="flex: unset; padding: 9px 16px;">Mở bài đăng TikTok</a>
+      </div>
+    `;
+  }
+}
+
 function updateModalSlide(idx) {
   if (modalTotalSlides === 0) return;
   modalCurrentIdx = idx;
 
-  // Tải ảnh hiện tại + tải trước ảnh kế trước/sau
   loadImageElement(modalImgs[modalCurrentIdx]);
   if (modalTotalSlides > 1) {
     loadImageElement(modalImgs[(modalCurrentIdx + 1) % modalTotalSlides]);
@@ -388,7 +440,6 @@ modalPrev.addEventListener('click', (e) => {
   updateModalSlide((modalCurrentIdx - 1 + modalTotalSlides) % modalTotalSlides);
 });
 
-// Hỗ trợ vuốt ảnh trên điện thoại trong Modal chi tiết
 let touchStartX = 0;
 modalCarouselContainer.addEventListener('touchstart', (e) => {
   touchStartX = e.changedTouches[0].screenX;
@@ -442,12 +493,16 @@ function openModal(pack, initialImgIdx = 0) {
   modalLinkBtn.href = downloadLink;
   currentActiveLink = downloadLink;
 
+  renderTikTokEmbed(pack.linktt);
+
   btnCopyLink.textContent = "📋 Sao chép Link";
   modal.classList.add('active');
 }
 
 function closeModal() {
   modal.classList.remove('active');
+  modalTiktokWrap.innerHTML = '';
+  detailModalContent.classList.remove('has-tiktok');
 }
 
 btnClose.addEventListener('click', closeModal);
@@ -762,7 +817,6 @@ skyInput.addEventListener('change', (e) => {
   loadSkyImageFile(e.target.files[0]);
 });
 
-// Kéo thả ảnh trực tiếp vào trình xem Skybox
 skyboxModal.addEventListener('dragover', (e) => e.preventDefault());
 skyboxModal.addEventListener('drop', (e) => {
   e.preventDefault();
@@ -830,7 +884,6 @@ window.addEventListener('keydown', (e) => {
     height = canvas.height = window.innerHeight;
   });
 
-  // Tạo sẵn sprite ánh sáng để không dùng shadowBlur (giữ 60fps)
   function makeGlowSprite(size, c0, c1, c2) {
     const off = document.createElement('canvas');
     off.width = size;
@@ -860,7 +913,6 @@ window.addEventListener('keydown', (e) => {
     'rgba(251, 146, 60, 0)'
   );
 
-  // Trạng thái con trỏ chuột có quán tính mượt
   const pointer = {
     targetX: width / 2,
     targetY: height / 2,
@@ -874,7 +926,6 @@ window.addEventListener('keydown', (e) => {
     alpha: 0
   };
 
-  // Hạt bụi ấm theo vệt chuột (giới hạn tối đa 18 hạt)
   const cursorTrail = [];
   const MAX_TRAIL = 18;
 
@@ -893,11 +944,10 @@ window.addEventListener('keydown', (e) => {
     swayPhase: Math.random() * Math.PI * 2,
     swaySpeed: Math.random() * 0.018 + 0.008,
     opacity: Math.random() * 0.5 + 0.28,
-    warmth: 0, // 0 = tuyết lạnh, 1 = được đèn lồng sưởi ấm
+    warmth: 0,
     baseWarmTint: Math.random() < 0.2
   }));
 
-  // Lắng nghe di chuyển chuột / cảm ứng
   window.addEventListener('pointermove', (e) => {
     if (document.body.classList.contains('skybox-open')) return;
     pointer.targetX = e.clientX;
@@ -927,7 +977,6 @@ window.addEventListener('keydown', (e) => {
     pointer.active = false;
   }, { passive: true });
 
-  // Click tạo luồng gió nhẹ thổi tản các hạt tuyết gần đó
   window.addEventListener('pointerdown', (e) => {
     if (document.body.classList.contains('skybox-open')) return;
     const cx = e.clientX;
@@ -954,7 +1003,6 @@ window.addEventListener('keydown', (e) => {
     if (!document.hidden && !document.body.classList.contains('skybox-open')) {
       ctx.clearRect(0, 0, width, height);
 
-      // Cập nhật vị trí & vận tốc chuột mượt
       pointer.prevX = pointer.x;
       pointer.prevY = pointer.y;
       pointer.x += (pointer.targetX - pointer.x) * 0.22;
@@ -968,13 +1016,11 @@ window.addEventListener('keydown', (e) => {
       const targetAlpha = pointer.active ? 1 : 0;
       pointer.alpha += (targetAlpha - pointer.alpha) * 0.1;
 
-      // Vẽ quầng sáng đèn lồng ấm theo chuột
       if (pointer.alpha > 0.02) {
         ctx.globalAlpha = pointer.alpha;
         ctx.drawImage(lanternSprite, pointer.x - 110, pointer.y - 110, 220, 220);
         ctx.globalAlpha = 1;
 
-        // Thả vệt bụi sáng nhẹ khi lướt chuột nhanh
         const speedSq = pointer.vx * pointer.vx + pointer.vy * pointer.vy;
         if (speedSq > 9 && cursorTrail.length < MAX_TRAIL && Math.random() < 0.55) {
           cursorTrail.push({
@@ -988,7 +1034,6 @@ window.addEventListener('keydown', (e) => {
         }
       }
 
-      // Cập nhật & vẽ vệt bụi sáng của chuột
       for (let i = cursorTrail.length - 1; i >= 0; i--) {
         const t = cursorTrail[i];
         t.x += t.vx;
@@ -1003,12 +1048,10 @@ window.addEventListener('keydown', (e) => {
       }
       ctx.globalAlpha = 1;
 
-      // Cập nhật & vẽ các hạt tuyết + tương tác với chuột
       for (let i = 0; i < flakes.length; i++) {
         const flake = flakes[i];
         flake.swayPhase += flake.swaySpeed;
 
-        // Kiểm tra tương tác với vùng đèn lồng chuột
         if (pointer.alpha > 0.08) {
           const dx = flake.x - pointer.x;
           const dy = flake.y - pointer.y;
@@ -1018,10 +1061,8 @@ window.addEventListener('keydown', (e) => {
             const dist = Math.sqrt(distSq) || 1;
             const influence = 1 - dist / INTERACT_RADIUS;
 
-            // Sưởi ấm hạt tuyết
             flake.warmth = Math.min(1, flake.warmth + influence * 0.16);
 
-            // Đẩy nhẹ rẽ tuyết sang hai bên + cuốn theo luồng gió của chuột
             const push = influence * 0.16;
             flake.vx += (dx / dist) * push + pointer.vx * influence * 0.055;
             flake.vy += (dy / dist) * push * 0.6 + pointer.vy * influence * 0.045 - influence * 0.05;
@@ -1032,14 +1073,12 @@ window.addEventListener('keydown', (e) => {
           flake.warmth = Math.max(0, flake.warmth - 0.03);
         }
 
-        // Giảm dần lực gió để tuyết rơi êm lại
         flake.vx *= 0.94;
         flake.vy *= 0.94;
 
         flake.y += flake.speedY + flake.vy;
         flake.x += Math.sin(flake.swayPhase) * 0.35 + flake.vx;
 
-        // Tái sinh hạt tuyết khi ra khỏi màn hình
         if (flake.y > height + 12) {
           flake.y = -10;
           flake.x = Math.random() * width;
@@ -1052,7 +1091,6 @@ window.addEventListener('keydown', (e) => {
           flake.x = width + 10;
         }
 
-        // Hạt tuyết được sưởi ấm có hào quang vàng kem
         if (flake.warmth > 0.05) {
           const haloSize = (flake.radius * 5.2 + 6) * (0.65 + flake.warmth * 0.45);
           ctx.globalAlpha = flake.warmth * 0.85;
