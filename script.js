@@ -812,47 +812,275 @@ window.addEventListener('keydown', (e) => {
 });
 
 // ========================================================
-// HIỆU ỨNG TUYẾT RƠI (TỰ TẠM DỪNG KHI ẨN TAB / MỞ SKYBOX)
+// HIỆU ỨNG TUYẾT RƠI & TƯƠNG TÁC CHUỘT ĐÈN LỒNG ẤM
 // ========================================================
-const canvas = document.getElementById('snow-canvas');
-const ctx = canvas.getContext('2d');
-let width = canvas.width = window.innerWidth;
-let height = canvas.height = window.innerHeight;
+(() => {
+  const canvas = document.getElementById('snow-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
 
-window.addEventListener('resize', () => {
-  width = canvas.width = window.innerWidth;
-  height = canvas.height = window.innerHeight;
-});
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion) return;
 
-const flakeCount = window.innerWidth <= 768 ? 32 : 52;
-const flakes = Array.from({ length: flakeCount }, () => ({
-  x: Math.random() * width,
-  y: Math.random() * height,
-  radius: Math.random() * 2.5 + 1,
-  speedY: Math.random() * 1 + 0.5,
-  speedX: Math.random() * 0.4 - 0.2,
-  opacity: Math.random() * 0.55 + 0.35
-}));
+  let width = (canvas.width = window.innerWidth);
+  let height = (canvas.height = window.innerHeight);
 
-function drawSnow() {
-  if (!document.hidden && !document.body.classList.contains('skybox-open')) {
-    ctx.clearRect(0, 0, width, height);
+  window.addEventListener('resize', () => {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+  });
+
+  // Tạo sẵn sprite ánh sáng để không dùng shadowBlur (giữ 60fps)
+  function makeGlowSprite(size, c0, c1, c2) {
+    const off = document.createElement('canvas');
+    off.width = size;
+    off.height = size;
+    const g = off.getContext('2d');
+    const half = size / 2;
+    const grad = g.createRadialGradient(half, half, 0, half, half, half);
+    grad.addColorStop(0, c0);
+    grad.addColorStop(0.45, c1);
+    grad.addColorStop(1, c2);
+    g.fillStyle = grad;
+    g.fillRect(0, 0, size, size);
+    return off;
+  }
+
+  const lanternSprite = makeGlowSprite(
+    220,
+    'rgba(251, 191, 36, 0.22)',
+    'rgba(234, 88, 12, 0.08)',
+    'rgba(234, 88, 12, 0)'
+  );
+
+  const warmFlakeHalo = makeGlowSprite(
+    28,
+    'rgba(254, 240, 138, 0.95)',
+    'rgba(251, 146, 60, 0.35)',
+    'rgba(251, 146, 60, 0)'
+  );
+
+  // Trạng thái con trỏ chuột có quán tính mượt
+  const pointer = {
+    targetX: width / 2,
+    targetY: height / 2,
+    x: width / 2,
+    y: height / 2,
+    prevX: width / 2,
+    prevY: height / 2,
+    vx: 0,
+    vy: 0,
+    active: false,
+    alpha: 0
+  };
+
+  // Hạt bụi ấm theo vệt chuột (giới hạn tối đa 18 hạt)
+  const cursorTrail = [];
+  const MAX_TRAIL = 18;
+
+  const isMobileScreen = window.innerWidth <= 768;
+  const flakeCount = isMobileScreen ? 32 : 56;
+  const INTERACT_RADIUS = isMobileScreen ? 105 : 145;
+  const INTERACT_RADIUS_SQ = INTERACT_RADIUS * INTERACT_RADIUS;
+
+  const flakes = Array.from({ length: flakeCount }, () => ({
+    x: Math.random() * width,
+    y: Math.random() * height,
+    radius: Math.random() * 2.3 + 1.0,
+    speedY: Math.random() * 0.85 + 0.45,
+    vx: 0,
+    vy: 0,
+    swayPhase: Math.random() * Math.PI * 2,
+    swaySpeed: Math.random() * 0.018 + 0.008,
+    opacity: Math.random() * 0.5 + 0.28,
+    warmth: 0, // 0 = tuyết lạnh, 1 = được đèn lồng sưởi ấm
+    baseWarmTint: Math.random() < 0.2
+  }));
+
+  // Lắng nghe di chuyển chuột / cảm ứng
+  window.addEventListener('pointermove', (e) => {
+    if (document.body.classList.contains('skybox-open')) return;
+    pointer.targetX = e.clientX;
+    pointer.targetY = e.clientY;
+    if (!pointer.active) {
+      pointer.x = e.clientX;
+      pointer.y = e.clientY;
+      pointer.prevX = e.clientX;
+      pointer.prevY = e.clientY;
+    }
+    pointer.active = true;
+  }, { passive: true });
+
+  document.addEventListener('mouseleave', () => {
+    pointer.active = false;
+  });
+
+  window.addEventListener('blur', () => {
+    pointer.active = false;
+  });
+
+  window.addEventListener('pointerup', (e) => {
+    if (e.pointerType === 'touch') pointer.active = false;
+  }, { passive: true });
+
+  window.addEventListener('pointercancel', () => {
+    pointer.active = false;
+  }, { passive: true });
+
+  // Click tạo luồng gió nhẹ thổi tản các hạt tuyết gần đó
+  window.addEventListener('pointerdown', (e) => {
+    if (document.body.classList.contains('skybox-open')) return;
+    const cx = e.clientX;
+    const cy = e.clientY;
+    const gustRadius = INTERACT_RADIUS * 1.15;
+    const gustRadiusSq = gustRadius * gustRadius;
+
     for (let i = 0; i < flakes.length; i++) {
-      const flake = flakes[i];
-      ctx.beginPath();
-      ctx.arc(flake.x, flake.y, flake.radius, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(255, 255, 255, ${flake.opacity})`;
-      ctx.fill();
-
-      flake.y += flake.speedY;
-      flake.x += flake.speedX;
-
-      if (flake.y > height) {
-        flake.y = -10;
-        flake.x = Math.random() * width;
+      const f = flakes[i];
+      const dx = f.x - cx;
+      const dy = f.y - cy;
+      const distSq = dx * dx + dy * dy;
+      if (distSq > 1 && distSq < gustRadiusSq) {
+        const dist = Math.sqrt(distSq);
+        const force = (1 - dist / gustRadius) * 4.2;
+        f.vx += (dx / dist) * force;
+        f.vy += (dy / dist) * force - 0.6;
+        f.warmth = 1;
       }
     }
+  }, { passive: true });
+
+  function drawSnow() {
+    if (!document.hidden && !document.body.classList.contains('skybox-open')) {
+      ctx.clearRect(0, 0, width, height);
+
+      // Cập nhật vị trí & vận tốc chuột mượt
+      pointer.prevX = pointer.x;
+      pointer.prevY = pointer.y;
+      pointer.x += (pointer.targetX - pointer.x) * 0.22;
+      pointer.y += (pointer.targetY - pointer.y) * 0.22;
+
+      const rawVx = pointer.x - pointer.prevX;
+      const rawVy = pointer.y - pointer.prevY;
+      pointer.vx = Math.max(-14, Math.min(14, rawVx));
+      pointer.vy = Math.max(-14, Math.min(14, rawVy));
+
+      const targetAlpha = pointer.active ? 1 : 0;
+      pointer.alpha += (targetAlpha - pointer.alpha) * 0.1;
+
+      // Vẽ quầng sáng đèn lồng ấm theo chuột
+      if (pointer.alpha > 0.02) {
+        ctx.globalAlpha = pointer.alpha;
+        ctx.drawImage(lanternSprite, pointer.x - 110, pointer.y - 110, 220, 220);
+        ctx.globalAlpha = 1;
+
+        // Thả vệt bụi sáng nhẹ khi lướt chuột nhanh
+        const speedSq = pointer.vx * pointer.vx + pointer.vy * pointer.vy;
+        if (speedSq > 9 && cursorTrail.length < MAX_TRAIL && Math.random() < 0.55) {
+          cursorTrail.push({
+            x: pointer.x + (Math.random() * 14 - 7),
+            y: pointer.y + (Math.random() * 14 - 7),
+            vx: -pointer.vx * 0.08 + (Math.random() * 0.5 - 0.25),
+            vy: -pointer.vy * 0.08 - Math.random() * 0.45,
+            life: 1,
+            size: Math.random() * 10 + 8
+          });
+        }
+      }
+
+      // Cập nhật & vẽ vệt bụi sáng của chuột
+      for (let i = cursorTrail.length - 1; i >= 0; i--) {
+        const t = cursorTrail[i];
+        t.x += t.vx;
+        t.y += t.vy;
+        t.life -= 0.032;
+        if (t.life <= 0) {
+          cursorTrail.splice(i, 1);
+          continue;
+        }
+        ctx.globalAlpha = t.life * 0.75;
+        ctx.drawImage(warmFlakeHalo, t.x - t.size / 2, t.y - t.size / 2, t.size, t.size);
+      }
+      ctx.globalAlpha = 1;
+
+      // Cập nhật & vẽ các hạt tuyết + tương tác với chuột
+      for (let i = 0; i < flakes.length; i++) {
+        const flake = flakes[i];
+        flake.swayPhase += flake.swaySpeed;
+
+        // Kiểm tra tương tác với vùng đèn lồng chuột
+        if (pointer.alpha > 0.08) {
+          const dx = flake.x - pointer.x;
+          const dy = flake.y - pointer.y;
+          const distSq = dx * dx + dy * dy;
+
+          if (distSq < INTERACT_RADIUS_SQ) {
+            const dist = Math.sqrt(distSq) || 1;
+            const influence = 1 - dist / INTERACT_RADIUS;
+
+            // Sưởi ấm hạt tuyết
+            flake.warmth = Math.min(1, flake.warmth + influence * 0.16);
+
+            // Đẩy nhẹ rẽ tuyết sang hai bên + cuốn theo luồng gió của chuột
+            const push = influence * 0.16;
+            flake.vx += (dx / dist) * push + pointer.vx * influence * 0.055;
+            flake.vy += (dy / dist) * push * 0.6 + pointer.vy * influence * 0.045 - influence * 0.05;
+          } else {
+            flake.warmth = Math.max(0, flake.warmth - 0.025);
+          }
+        } else {
+          flake.warmth = Math.max(0, flake.warmth - 0.03);
+        }
+
+        // Giảm dần lực gió để tuyết rơi êm lại
+        flake.vx *= 0.94;
+        flake.vy *= 0.94;
+
+        flake.y += flake.speedY + flake.vy;
+        flake.x += Math.sin(flake.swayPhase) * 0.35 + flake.vx;
+
+        // Tái sinh hạt tuyết khi ra khỏi màn hình
+        if (flake.y > height + 12) {
+          flake.y = -10;
+          flake.x = Math.random() * width;
+          flake.vx = 0;
+          flake.vy = 0;
+          flake.warmth = 0;
+        } else if (flake.x > width + 12) {
+          flake.x = -10;
+        } else if (flake.x < -12) {
+          flake.x = width + 10;
+        }
+
+        // Hạt tuyết được sưởi ấm có hào quang vàng kem
+        if (flake.warmth > 0.05) {
+          const haloSize = (flake.radius * 5.2 + 6) * (0.65 + flake.warmth * 0.45);
+          ctx.globalAlpha = flake.warmth * 0.85;
+          ctx.drawImage(
+            warmFlakeHalo,
+            flake.x - haloSize / 2,
+            flake.y - haloSize / 2,
+            haloSize,
+            haloSize
+          );
+          ctx.globalAlpha = 1;
+        }
+
+        ctx.beginPath();
+        ctx.arc(flake.x, flake.y, flake.radius + flake.warmth * 0.45, 0, Math.PI * 2);
+        if (flake.warmth > 0.1) {
+          ctx.fillStyle = `rgba(254, 243, 199, ${Math.min(1, flake.opacity + flake.warmth * 0.4)})`;
+        } else {
+          ctx.fillStyle = flake.baseWarmTint
+            ? `rgba(254, 243, 199, ${flake.opacity})`
+            : `rgba(241, 245, 249, ${flake.opacity})`;
+        }
+        ctx.fill();
+      }
+    }
+
+    requestAnimationFrame(drawSnow);
   }
-  requestAnimationFrame(drawSnow);
-}
-drawSnow();
+
+  drawSnow();
+})();
