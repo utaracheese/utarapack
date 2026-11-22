@@ -25,6 +25,17 @@ const notes = {
 // ========================================================
 const javaPackList = [
   {
+    title: "Nakano Nino 210",
+    key: "5 waifu anime",
+    images: [
+      "assets/nino.png",
+    ],
+    desc: "Download pack tại link dưới đây",
+    link: "https://link4m.net/go/4KTaJN",
+    olink: "",
+    linktt: ""
+  },
+  {
     title: "Silver Wolf",
     key: "honkai star rail",
     images: [
@@ -564,7 +575,7 @@ const bedrockPackList = [
     desc: "Tải pack Cartethyia tại link bên dưới này.",
     link: "https://link4m.net/QsJoyU",
     olink: "https://shrinkme.click/0bcLB",
-    linktt: "https://www.tiktok.com/@utara2610/video/7696151838789471508"
+    linktt: ""
   },
   {
     title: "Pack Cartethyia Bedrock",
@@ -575,7 +586,7 @@ const bedrockPackList = [
     desc: "Tải pack Cartethyia tại link bên dưới này.",
     link: "https://link4m.org/go/mU6br",
     olink: "https://shrinkme.click/GBpuh8t",
-    linktt: "https://www.tiktok.com/@utara2610/video/7695260671721655572"
+    linktt: ""
   },
   {
     title: "Pack yuki suou Bedrock",
