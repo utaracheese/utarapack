@@ -32,7 +32,7 @@ const javaPackList = [
     ],
     desc: "Download pack tại link dưới đây",
     link: "https://link4m.net/go/4KTaJN",
-    olink: "",
+    olink: "https://shrinkme.click/cHYAS",
     linktt: ""
   },
   {
@@ -489,6 +489,17 @@ const javaPackList = [
 // 2. DANH SÁCH PACK BEDROCK CHÍNH
 // ========================================================
 const bedrockPackList = [
+  {
+    title: "Nakano Nino 210",
+    key: "5 waifu anime",
+    images: [
+      "assets/nino.png",
+    ],
+    desc: "Download pack tại link dưới đây",
+    link: "https://link4m.net/afzhBgcZ",
+    olink: "https://shrinkme.click/4YCj6",
+    linktt: ""
+  },
   {
     title: "Silver Wolf",
     key: "honkai star rail",
